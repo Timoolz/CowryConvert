@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.olamide.cowryconvert.ConvertApi
+import com.olamide.cowryconvert.service.ConvertApi
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

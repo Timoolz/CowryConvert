@@ -1,8 +1,10 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.olamide.cowryconvert.service.ConvertRepository
+import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.di.rx.SchedulersFactory
 import io.reactivex.disposables.CompositeDisposable
 
@@ -23,8 +25,8 @@ class MainViewModel : AndroidViewModel {
     }
 
 
-    public fun getLatest() {
-        disposables.add(convertRepository.getLatestRates("USD", null)
+    public fun getLatest(base:String, symbols: List<String>?) {
+        disposables.add(convertRepository.getLatestRates(base, symbols )
             .subscribeOn(schedulersFactory.io())
             .observeOn(schedulersFactory.ui())
             .doOnSubscribe { loader -> mainLiveData.value = VmResponse.loading() }

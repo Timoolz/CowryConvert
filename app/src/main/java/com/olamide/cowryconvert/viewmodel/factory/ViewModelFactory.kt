@@ -1,9 +1,11 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.viewmodel.factory
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.olamide.cowryconvert.service.ConvertRepository
 import com.olamide.cowryconvert.di.rx.SchedulersFactory
+import com.olamide.cowryconvert.viewmodel.MainViewModel
 import javax.inject.Inject
 
 
@@ -19,7 +21,11 @@ constructor(
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java!!)) {
-            return MainViewModel(application, convertRepository, schedulersFactory) as T
+            return MainViewModel(
+                application,
+                convertRepository,
+                schedulersFactory
+            ) as T
         }
 
         throw IllegalArgumentException("Unknown class name")

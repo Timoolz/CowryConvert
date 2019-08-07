@@ -1,5 +1,6 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.service
 
+import com.olamide.cowryconvert.model.ConvertResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

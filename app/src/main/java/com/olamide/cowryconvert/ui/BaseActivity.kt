@@ -1,6 +1,7 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.ui
 
 import android.os.Bundle
+import com.olamide.cowryconvert.viewmodel.factory.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 

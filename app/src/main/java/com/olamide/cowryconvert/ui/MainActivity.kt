@@ -1,10 +1,12 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.olamide.cowryconvert.R
+import com.olamide.cowryconvert.model.rx.Status
+import com.olamide.cowryconvert.model.rx.VmResponse
+import com.olamide.cowryconvert.viewmodel.MainViewModel
 import timber.log.Timber
 
 class MainActivity : BaseActivity() {
@@ -16,13 +18,12 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-        mainViewModel.getLatest()
-        mainViewModel.getLatestResponse().observe(this, Observer<VmResponse> { response -> loadUi(response) })
-
+        mainViewModel.getLatest("USD", null)
+        mainViewModel.getLatestResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
     }
 
-    private fun loadUi(vmResponse: VmResponse) {
+    private fun handleResponse(vmResponse: VmResponse) {
         when (vmResponse.status) {
             Status.LOADING -> {
             }

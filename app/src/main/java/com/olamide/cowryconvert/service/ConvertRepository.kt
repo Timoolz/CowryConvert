@@ -1,5 +1,6 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.service
 
+import com.olamide.cowryconvert.model.ConvertResponse
 import io.reactivex.Observable
 
 class ConvertRepository(var convertApi: ConvertApi) {

@@ -2,9 +2,9 @@ package com.olamide.cowryconvert.di.module
 
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
-import com.olamide.cowryconvert.ConvertApi
-import com.olamide.cowryconvert.ConvertRepository
-import com.olamide.cowryconvert.ViewModelFactory
+import com.olamide.cowryconvert.service.ConvertApi
+import com.olamide.cowryconvert.service.ConvertRepository
+import com.olamide.cowryconvert.viewmodel.factory.ViewModelFactory
 import com.olamide.cowryconvert.di.rx.SchedulersFactory
 import dagger.Module
 import dagger.Provides
@@ -29,6 +29,10 @@ class AppModule(val application: Application) {
         convertRepository: ConvertRepository,
         schedulersFactory: SchedulersFactory
     ): ViewModelProvider.Factory {
-        return ViewModelFactory(application, convertRepository, schedulersFactory)
+        return ViewModelFactory(
+            application,
+            convertRepository,
+            schedulersFactory
+        )
     }
 }

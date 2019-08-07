@@ -1,7 +1,7 @@
 package com.olamide.cowryconvert.di.module
 
-import com.olamide.cowryconvert.BaseActivity
-import com.olamide.cowryconvert.MainActivity
+import com.olamide.cowryconvert.ui.BaseActivity
+import com.olamide.cowryconvert.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

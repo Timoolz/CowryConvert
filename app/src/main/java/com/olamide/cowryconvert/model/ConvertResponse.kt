@@ -1,9 +1,9 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.model
 
 import com.google.gson.annotations.SerializedName
 import java.util.HashMap
 
-data class ConvertResponse(
+ class ConvertResponse(
 
 
     @SerializedName("error")
