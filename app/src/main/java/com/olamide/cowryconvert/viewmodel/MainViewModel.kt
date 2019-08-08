@@ -25,8 +25,8 @@ class MainViewModel : AndroidViewModel {
     }
 
 
-    public fun getLatest(base:String, symbols: List<String>?) {
-        disposables.add(convertRepository.getLatestRates(base, symbols )
+    public fun getMultipleData(fromSymbols:List<String>, toSymbols: List<String>) {
+        disposables.add(convertRepository.getMultipleData(fromSymbols, toSymbols )
             .subscribeOn(schedulersFactory.io())
             .observeOn(schedulersFactory.ui())
             .doOnSubscribe { loader -> mainLiveData.value = VmResponse.loading() }
@@ -37,7 +37,7 @@ class MainViewModel : AndroidViewModel {
 
     }
 
-    public fun getLatestResponse() :MutableLiveData<VmResponse>{
+    public fun getMultipleResponse() :MutableLiveData<VmResponse>{
         return mainLiveData
     }
 

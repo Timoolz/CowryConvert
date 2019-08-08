@@ -18,8 +18,8 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-        mainViewModel.getLatest("USD", null)
-        mainViewModel.getLatestResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
+        mainViewModel.getMultipleData(listOf("BTC","ETH","XRP"), listOf("NGN","USD","EUR"))
+        mainViewModel.getMultipleResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
     }
 
