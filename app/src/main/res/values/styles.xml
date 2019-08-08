@@ -21,9 +21,54 @@
         <item name="colorOnBackground">@color/colorOnBackground</item>
 
 
+    </style>
+
+    <style name="AppTheme.CardView">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <!--<item name="android:foreground">?selectableItemBackground</item>-->
+        <item name="cardCornerRadius">@dimen/app_corner_radius</item>
+        <item name="android:elevation">2dp</item>
+        <item name="cardMaxElevation">8dp</item>
+        <!--<item name="android:stateListAnimator">@animator/article_list_card_lift_up</item>-->
+
+    </style>
 
 
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
+
+    <style name="AppTheme.TextView">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:padding">10dp</item>
+
+    </style>
+
+    <style name="AppTheme.TextView.Small">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.TextView.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.TextView.Large">
+        <item name="android:textSize">22sp</item>
     </style>
 
 </resources>

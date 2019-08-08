@@ -1,3 +1,91 @@
 <resources>
-    <string name="app_name">Cowry Converter</string>
+    <string name="app_name">Cowry Crypto</string>
+
+    <string name="amount">Amount: </string>
+    <string name="amount_min">Minimum Amount</string>
+    <string name="generic_form_validation">Complete required fields </string>
+
+    <string name="description">Description</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+
+    <string name="app_dummy_number">04</string>
+    <string name="refresh">Refresh</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Please wait…</string>
+    <string name="internet_error">Unable to complete.  Check Internet connection. </string>
+    <string name="error">Unable to complete action, System error. </string>
+
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_share">Share</string>
+
+    <string name="up">Up</string>
+    <string name="down">Down</string>
+    <string-array name="gender">
+        <!--<item>Gender</item>-->
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string name="desc_logo">Cowry Crypto logo</string>
+    <string name="desc_art_image">Image of Art</string>
+    <string name="desc_play">play current video</string>
+    <string name="desc_pause">pause current video</string>
+    <string name="desc_prev">Image of Art</string>
+    <string name="desc_fullscreen">goto or exit fullscreen</string>
+
+    <string name="app_dummy_text_long">Test String that is very long. lonng but not as large as
+        text. which is very long
+    </string>
+    <string name="app_dummy_text_medium">Test String that is quite medium</string>
+    <string name="app_dummy_text_short">A short Test String</string>
+    <string name="app_dummy_text">Test String</string>
+
+
+    <string name="large_text">
+        "Submission and Evaluation"
+        "Your project will be evaluated by a Udacity Code Reviewer according to this rubric . Be sure to review it
+        thoroughly before you submit. All criteria must "meet specifications" in order to pass.
+
+        Note: Please make sure you clean your project before creating a zip file or pushing code to a GitHub repository.
+        You can clean your project by following the instructions given in this link.
+
+        If you are using GitHub to host your projects, please make sure the code you want to submit for review is in the
+        master branch of your repository.
+
+        IMPORTANT: If you're submitting via a public Github repository, please make sure any external API key that you
+        utilize, has been removed from your code. It's highly unsafe (and often breaks the Terms of Service) to include
+        API keys in public repos, so you need to remove yours. You can add a note in a README file where a reviewer
+        should go to insert their API key. Reviewers have been trained to expect this situation.
+
+        IMPORTANT: Make sure not to forget to move all the hardcoded Strings in your project to the strings.xml file. If
+        you are unsure how to do this, revisit this video in Advanced Android Apps.
+
+        If you have any problems submitting your project, please email us at **android-project@udacity.com. Due to the
+        high volume of submissions, the turnaround for your project can take up to a week**.
+
+        Each Android ND project will be reviewed against the Common Project Requirements, in addition to its
+        project-specific rubric.
+    </string>
+    <string name="sort_all">All</string>
+    <string name="sort_favourite">Favourite</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+
+    <string-array name="currency">
+        <item>NGN</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>CAD</item>
+    </string-array>
+
+    <string-array name="cryptoCurrency">
+        <item>BTC</item>
+        <item>ETH</item>
+        <item>XRP</item>
+        <item>LTC</item>
+        <item>BCH</item>
+    </string-array>
+
 </resources>

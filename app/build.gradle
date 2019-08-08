@@ -55,6 +55,7 @@ dependencies {
 
     //Image formatting Libraries
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     /* Retrofit lib*/
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
