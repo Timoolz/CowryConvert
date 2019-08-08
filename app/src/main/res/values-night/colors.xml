@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#291</color>
-    <color name="colorPrimaryDark">#291</color>
-    <color name="colorAccent">#291</color>
+    <color name="colorPrimary">#444f7b</color>
+    <color name="colorPrimaryDark">#282e50</color>
+    <color name="colorAccent">#6482fe</color>
+    <color name="colorSecondary">#444f7b</color>
+    <color name="colorBackground">#383f67</color>
+    <color name="colorError">#FF4500</color>
+
+    <!-- New MaterialComponents attributes. -->
+    <color name="colorPrimaryVariant">#fff</color>
+    <color name="colorSecondaryVariant">#fff</color>
+    <color name="colorOnPrimary">#4d4d4d</color>
+    <color name="colorOnSecondary">#4d4d4d</color>
+    <color name="colorOnBackground">#4d4d4d</color>
+    <color name="colorOnError">#FFF</color>
+    <color name="colorSurface">#444f7b</color>
+    <color name="colorOnSurface">#4d4d4d</color>
 </resources>

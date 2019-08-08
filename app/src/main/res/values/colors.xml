@@ -2,5 +2,21 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#fff</color>
-    <color name="colorAccent">#fff</color>
+    <color name="colorAccent">#6482fe</color>
+    <color name="colorSecondary">#fff</color>
+    <color name="colorBackground">#f5f7f9</color>
+    <color name="colorError">#FF4500</color>
+
+    <!-- New MaterialComponents attributes. -->
+    <color name="colorPrimaryVariant">#3a416a</color>
+    <color name="colorSecondaryVariant">#3a416a</color>
+    <color name="colorOnPrimary">#7f8fc1</color>
+    <color name="colorOnSecondary">#7f8fc1</color>
+    <color name="colorOnBackground">#9faacf</color>
+    <color name="colorOnError">#FFF</color>
+    <color name="colorSurface">#fff</color>
+    <color name="colorOnSurface">#e6e8ed</color>
+
+
+
 </resources>
