@@ -1,0 +1,30 @@
+[
+  {
+    "code": "BTC",
+    "name": "Bitcoin"
+  },
+  {
+    "code": "LTC",
+    "name": "Litecoin"
+  },
+  {
+    "code": "ETH",
+    "name": "Ethereum"
+  },
+  {
+    "code": "BCH",
+    "name": "Bitcoin Cash"
+  },
+  {
+    "code": "XRP",
+    "name": "Ripple"
+  },
+  {
+    "code": "DASH",
+    "name": "Dash"
+  },
+  {
+    "code": "XMR",
+    "name": "Monero"
+  }
+]

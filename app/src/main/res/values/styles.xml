@@ -23,7 +23,7 @@
 
     </style>
 
-    <style name="AppTheme.CardView">
+    <style name="AppTheme.CardView" parent="CardView">
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:layout_marginStart">8dp</item>
@@ -31,10 +31,10 @@
         <item name="android:padding">10dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+        <item name="cardBackgroundColor">@color/colorSurface</item>
         <!--<item name="android:foreground">?selectableItemBackground</item>-->
         <item name="cardCornerRadius">@dimen/app_corner_radius</item>
-        <item name="android:elevation">2dp</item>
-        <item name="cardMaxElevation">8dp</item>
+
         <!--<item name="android:stateListAnimator">@animator/article_list_card_lift_up</item>-->
 
     </style>

@@ -3,9 +3,9 @@
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#fff</color>
     <color name="colorAccent">#6482fe</color>
-    <color name="colorSecondary">#fff</color>
+    <color name="colorSecondary">#f3f5f5</color>
     <color name="colorBackground">#f5f7f9</color>
-    <color name="colorError">#FF4500</color>
+    <color name="colorError">@color/red</color>
 
     <!-- New MaterialComponents attributes. -->
     <color name="colorPrimaryVariant">#3a416a</color>
@@ -15,8 +15,13 @@
     <color name="colorOnBackground">#9faacf</color>
     <color name="colorOnError">#FFF</color>
     <color name="colorSurface">#fff</color>
-    <color name="colorOnSurface">#e6e8ed</color>
+    <color name="colorOnSurface">#4d4d4d</color>
 
+
+
+    <color name="green">#32CD32</color>
+
+    <color name="red">#FF4500</color>
 
 
 </resources>

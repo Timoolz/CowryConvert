@@ -3,7 +3,7 @@
     <color name="colorPrimary">#444f7b</color>
     <color name="colorPrimaryDark">#282e50</color>
     <color name="colorAccent">#6482fe</color>
-    <color name="colorSecondary">#444f7b</color>
+    <color name="colorSecondary">#3a416a</color>
     <color name="colorBackground">#383f67</color>
     <color name="colorError">#FF4500</color>
 
@@ -11,9 +11,9 @@
     <color name="colorPrimaryVariant">#fff</color>
     <color name="colorSecondaryVariant">#fff</color>
     <color name="colorOnPrimary">#4d4d4d</color>
-    <color name="colorOnSecondary">#4d4d4d</color>
-    <color name="colorOnBackground">#4d4d4d</color>
+    <color name="colorOnSecondary">#7f8fc1</color>
+    <color name="colorOnBackground">#9faacf</color>
     <color name="colorOnError">#FFF</color>
     <color name="colorSurface">#444f7b</color>
-    <color name="colorOnSurface">#4d4d4d</color>
+    <color name="colorOnSurface">#e6e8ed</color>
 </resources>
