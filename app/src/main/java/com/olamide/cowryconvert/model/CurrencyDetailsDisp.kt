@@ -46,6 +46,12 @@ data class CurrencyDetailsDisp(
     @SerializedName("CHANGEPCTDAY")
     @JsonProperty("CHANGEPCTDAY")
     var changePctDay: String,
+    @SerializedName("LASTMARKET")
+    @JsonProperty("LASTMARKET")
+    var lastMarket: String,
+    @SerializedName("MKTCAP")
+    @JsonProperty("MKTCAP")
+    var volume: String,
     @SerializedName("IMAGEURL")
     @JsonProperty("IMAGEURL")
     var imageUrl: String

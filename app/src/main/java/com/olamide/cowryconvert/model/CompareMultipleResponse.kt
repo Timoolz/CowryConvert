@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName
 data class CompareMultipleResponse(
     @SerializedName("RAW")
     @JsonProperty("RAW")
-    var raw: HashMap<String, HashMap<String, CurrencyDetailsRaw>>,
+    var raw: HashMap<String, LinkedHashMap<String, CurrencyDetailsRaw>>,
     @SerializedName("DISPLAY")
     @JsonProperty("DISPLAY")
-    var display: HashMap<String, HashMap<String, CurrencyDetailsDisp>>,
+    var display: HashMap<String, LinkedHashMap<String, CurrencyDetailsDisp>>,
     @SerializedName("Response")
     @JsonProperty("Response")
     var response: String?,

@@ -46,6 +46,12 @@ data class CurrencyDetailsRaw(
     @SerializedName("CHANGEPCTDAY")
     @JsonProperty("CHANGEPCTDAY")
     var changePctDay: Double,
+    @SerializedName("LASTMARKET")
+    @JsonProperty("LASTMARKET")
+    var lastMarket: String,
+    @SerializedName("MKTCAP")
+    @JsonProperty("MKTCAP")
+    var volume: Double,
     @SerializedName("IMAGEURL")
     @JsonProperty("IMAGEURL")
     var imageUrl: String
