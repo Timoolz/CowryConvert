@@ -6,6 +6,8 @@
         style="@style/AppTheme.CardView"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
 >
     <RelativeLayout
             android:layout_width="match_parent"
@@ -19,10 +21,11 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_logo"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    app:riv_corner_radius="25dp"
                     android:padding="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -98,6 +101,8 @@
                 android:background="@color/colorSecondary"
         >
             <LinearLayout
+                    android:id="@+id/rand"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -224,8 +229,7 @@
 
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
+android:layout_below="@+id/rand"                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
