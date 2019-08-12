@@ -19,6 +19,7 @@ import com.olamide.cowryconvert.model.Crypto
 import com.olamide.cowryconvert.model.CurrencyDetailsDisp
 import com.olamide.cowryconvert.model.CurrencyDetailsRaw
 import com.squareup.picasso.Picasso
+import timber.log.Timber
 import java.util.ArrayList
 
 class MainAdapter(
@@ -42,6 +43,8 @@ class MainAdapter(
 
         val basicLayout = view.findViewById<LinearLayout>(R.id.basic_layout)
         val infoLayout = view.findViewById<RelativeLayout>(R.id.info_layout)
+
+        var ivMore = view.findViewById<ImageView>(R.id.ib_more)
 
         var ivLogo = view.findViewById<ImageView>(R.id.iv_logo)
         var tvName = view.findViewById<TextView>(R.id.tv_name)
@@ -77,17 +80,18 @@ class MainAdapter(
             tvDown.text = dispDetails!!.lowDay
             tvMarket.text = dispDetails!!.market
             tvMarket2.text = dispDetails!!.lastMarket
+            ivMore.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
             val adapterPosition = adapterPosition
-            clickListener.onClickListener(adapterPosition, v)
+            clickListener.onClickListener(adapterPosition, itemView, v.id == ivMore.id)
 
         }
     }
 
     interface MainAdapterOnClickListener {
-        fun onClickListener(position: Int, view: View)
+        fun onClickListener(position: Int, view: View, more: Boolean)
     }
 
     fun setCryptoConversionData(cryptoData: CompareMultipleResponse, currentCurrency: String) {

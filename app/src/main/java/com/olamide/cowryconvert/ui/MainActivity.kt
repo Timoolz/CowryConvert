@@ -22,8 +22,6 @@ import kotlinx.android.synthetic.main.crypto_card.view.*
 import timber.log.Timber
 
 
-
-
 class MainActivity : BaseActivity() {
 
 
@@ -76,16 +74,17 @@ class MainActivity : BaseActivity() {
 
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
-                    mAdapter = MainAdapter(this, cryptos, currentCurrency,CardClicked())
+                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked())
                     cryptoRv.adapter = mAdapter
                     populateAdapter()
-                    sp_currency.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+                    sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(p0: AdapterView<*>?) {
                         }
 
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                             currentCurrency = sp_currency.selectedItem.toString()
-                            populateAdapter()            }
+                            populateAdapter()
+                        }
 
                     }
 
@@ -109,21 +108,21 @@ class MainActivity : BaseActivity() {
         mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
     }
 
-    class CardClicked:MainAdapter.MainAdapterOnClickListener {
+    class CardClicked : MainAdapter.MainAdapterOnClickListener {
         var isExpanded = -1
-        override fun onClickListener(position: Int, view:View) {
+        override fun onClickListener(position: Int, view: View, more: Boolean) {
 
             if (view.info_layout.visibility == View.GONE) {
                 view.info_layout.visibility = View.VISIBLE
-            }else{
+            } else if (!more) {
                 view.info_layout.visibility = View.GONE
+            } else {
+
             }
 
 
         }
     }
-
-
 
 
     private fun initViewModel() {

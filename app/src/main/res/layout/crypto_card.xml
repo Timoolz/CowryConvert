@@ -274,7 +274,7 @@
                         android:textColor="@color/colorOnBackground"
                 />
 
-                <ImageButton
+                <ImageView
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:id="@+id/ib_more"
