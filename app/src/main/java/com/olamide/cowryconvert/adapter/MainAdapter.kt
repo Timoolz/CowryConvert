@@ -63,7 +63,7 @@ class MainAdapter(
                 .into(ivLogo)
 
             tvName.text = currentCrypto.name
-            tvCode.text = "-" + currentCrypto.code
+            tvCode.text = "- " + currentCrypto.code
             tvPrice.text = dispDetails!!.price
             tvChange.text = dispDetails!!.changePct24Hour + "%"
             if (rawDetails.changePct24Hour < 0) {
@@ -75,8 +75,8 @@ class MainAdapter(
             tvVolume.text = dispDetails!!.volume
             tvUp.text = dispDetails!!.highDay
             tvDown.text = dispDetails!!.lowDay
-            tvMarket.text = dispDetails!!.lastMarket
-            tvMarket2.text = dispDetails!!.market
+            tvMarket.text = dispDetails!!.market
+            tvMarket2.text = dispDetails!!.lastMarket
         }
 
         override fun onClick(v: View) {

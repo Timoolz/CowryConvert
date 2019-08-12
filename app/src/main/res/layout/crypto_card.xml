@@ -73,8 +73,8 @@
                         android:textColor="@color/colorOnSurface"
                         style="@style/AppTheme.TextView.Medium"
                         android:layout_marginBottom="0dp"
-                        android:paddingTop="0dp"
-                        android:paddingBottom="0dp"
+                        android:layout_marginTop="0dp"
+                        android:paddingBottom="2dp"
                 />
 
                 <TextView
@@ -86,8 +86,10 @@
                         android:textColor="@color/colorOnBackground"
                         style="@style/AppTheme.TextView.Small"
                         android:layout_marginBottom="0dp"
-                        android:paddingTop="0dp"
-                        android:paddingBottom="0dp"
+                        android:layout_marginTop="0dp"
+                        android:paddingTop="2dp"
+
+
                 />
 
             </RelativeLayout>
