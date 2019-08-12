@@ -1,8 +1,10 @@
 package com.olamide.cowryconvert.ui
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.olamide.cowryconvert.UiUtils
@@ -28,6 +30,12 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         mapper.registerKotlinModule()
 
     }
+
+
+    fun showToast(message: String){
+        Toast.makeText(applicationContext,message,Toast.LENGTH_SHORT).show()
+    }
+
 
 
 }

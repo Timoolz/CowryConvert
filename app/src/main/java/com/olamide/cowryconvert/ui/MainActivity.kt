@@ -1,5 +1,6 @@
 package com.olamide.cowryconvert.ui
 
+import android.app.Activity
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
@@ -74,7 +75,7 @@ class MainActivity : BaseActivity() {
 
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
-                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked())
+                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this))
                     cryptoRv.adapter = mAdapter
                     populateAdapter()
                     sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -108,8 +109,7 @@ class MainActivity : BaseActivity() {
         mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
     }
 
-    class CardClicked : MainAdapter.MainAdapterOnClickListener {
-        var isExpanded = -1
+    class CardClicked(val activity: BaseActivity) : MainAdapter.MainAdapterOnClickListener {
         override fun onClickListener(position: Int, view: View, more: Boolean) {
 
             if (view.info_layout.visibility == View.GONE) {
@@ -117,12 +117,13 @@ class MainActivity : BaseActivity() {
             } else if (!more) {
                 view.info_layout.visibility = View.GONE
             } else {
-
+                activity.showToast("Well we want More")
             }
 
 
         }
     }
+
 
 
     private fun initViewModel() {
