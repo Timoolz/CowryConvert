@@ -49,6 +49,9 @@ data class CurrencyDetailsRaw(
     @SerializedName("LASTMARKET")
     @JsonProperty("LASTMARKET")
     var lastMarket: String,
+    @SerializedName("MARKET")
+    @JsonProperty("MARKET")
+    var market: String,
     @SerializedName("MKTCAP")
     @JsonProperty("MKTCAP")
     var volume: Double,

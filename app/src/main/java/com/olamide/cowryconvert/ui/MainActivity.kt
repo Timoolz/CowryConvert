@@ -2,6 +2,8 @@ package com.olamide.cowryconvert.ui
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,14 +17,15 @@ import com.olamide.cowryconvert.model.Crypto
 import com.olamide.cowryconvert.model.rx.Status
 import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.crypto_card.view.*
 import timber.log.Timber
-import java.io.File
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.io.StringWriter
 
 
-class MainActivity : BaseActivity(), MainAdapter.MainAdapterOnClickListener {
+
+
+class MainActivity : BaseActivity() {
+
 
     lateinit var cryptos: List<Crypto>
     lateinit var currencies: List<String>
@@ -54,7 +57,6 @@ class MainActivity : BaseActivity(), MainAdapter.MainAdapterOnClickListener {
         cryptoRv.isNestedScrollingEnabled = false
 
 
-
     }
 
     private fun initDefaultDataConfig() {
@@ -74,9 +76,18 @@ class MainActivity : BaseActivity(), MainAdapter.MainAdapterOnClickListener {
 
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
-                    mAdapter = MainAdapter(this, cryptos, currentCurrency, this)
+                    mAdapter = MainAdapter(this, cryptos, currentCurrency,CardClicked())
                     cryptoRv.adapter = mAdapter
-                    mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
+                    populateAdapter()
+                    sp_currency.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            currentCurrency = sp_currency.selectedItem.toString()
+                            populateAdapter()            }
+
+                    }
 
 
                 } catch (e: Exception) {
@@ -94,8 +105,26 @@ class MainActivity : BaseActivity(), MainAdapter.MainAdapterOnClickListener {
         }
     }
 
-    override fun onClickListener(position: Int) {
+    private fun populateAdapter() {
+        mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
     }
+
+    class CardClicked:MainAdapter.MainAdapterOnClickListener {
+        var isExpanded = -1
+        override fun onClickListener(position: Int, view:View) {
+
+            if (view.info_layout.visibility == View.GONE) {
+                view.info_layout.visibility = View.VISIBLE
+            }else{
+                view.info_layout.visibility = View.GONE
+            }
+
+
+        }
+    }
+
+
+
 
     private fun initViewModel() {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)

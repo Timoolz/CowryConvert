@@ -1,10 +1,13 @@
 package com.olamide.cowryconvert.adapter
 
 import android.content.Context
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +40,9 @@ class MainAdapter(
             view.setOnClickListener(this)
         }
 
+        val basicLayout = view.findViewById<LinearLayout>(R.id.basic_layout)
+        val infoLayout = view.findViewById<RelativeLayout>(R.id.info_layout)
+
         var ivLogo = view.findViewById<ImageView>(R.id.iv_logo)
         var tvName = view.findViewById<TextView>(R.id.tv_name)
         var tvCode = view.findViewById<TextView>(R.id.tv_code)
@@ -46,6 +52,7 @@ class MainAdapter(
         var tvUp = view.findViewById<TextView>(R.id.tv_up)
         var tvDown = view.findViewById<TextView>(R.id.tv_down)
         var tvMarket = view.findViewById<TextView>(R.id.market)
+        var tvMarket2 = view.findViewById<TextView>(R.id.market_2)
 
 
         fun cryptoItem(rawDetails: CurrencyDetailsRaw?, dispDetails: CurrencyDetailsDisp?, currentCrypto: Crypto) {
@@ -69,16 +76,18 @@ class MainAdapter(
             tvUp.text = dispDetails!!.highDay
             tvDown.text = dispDetails!!.lowDay
             tvMarket.text = dispDetails!!.lastMarket
+            tvMarket2.text = dispDetails!!.market
         }
 
         override fun onClick(v: View) {
             val adapterPosition = adapterPosition
-            clickListener.onClickListener(adapterPosition)
+            clickListener.onClickListener(adapterPosition, v)
+
         }
     }
 
     interface MainAdapterOnClickListener {
-        fun onClickListener(position: Int)
+        fun onClickListener(position: Int, view: View)
     }
 
     fun setCryptoConversionData(cryptoData: CompareMultipleResponse, currentCurrency: String) {
@@ -100,14 +109,25 @@ class MainAdapter(
         var rawDetails = cryptoData.raw[currentCrypto.code]?.get(currency)
         var dispDetails = cryptoData.display[currentCrypto.code]?.get(currency)
         holder.cryptoItem(rawDetails, dispDetails, currentCrypto)
+
+
     }
 
     override fun getItemCount(): Int {
-        return if (cryptoData.raw.size > 0) {
-            cryptoData.raw.size
+        if (::cryptoData.isInitialized) {
+            return if (cryptoData.raw.size > 0) {
+                cryptoData.raw.size
+            } else {
+                0
+            }
         } else {
-            0
+            return if (cryptoList.isNotEmpty()) {
+                cryptoList.size
+            } else {
+                0
+            }
         }
+
     }
 
 

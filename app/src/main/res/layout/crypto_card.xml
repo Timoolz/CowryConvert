@@ -6,8 +6,10 @@
         style="@style/AppTheme.CardView"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:animateLayoutChanges="true"
+
 >
     <RelativeLayout
             android:layout_width="match_parent"
@@ -94,15 +96,37 @@
 
         <RelativeLayout
                 android:id="@+id/info_layout"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_below="@id/basic_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorSecondary"
         >
+            <view
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/colorSecondary"
+            />
+
+
+            <TextView
+                    android:id="@+id/market_2"
+                    android:layout_below="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_dummy_text_short"
+                    android:background="@color/colorSurface"
+                    android:textColor="@color/colorOnSurface"
+                    style="@style/AppTheme.TextView.Medium"
+            />
+
+
             <LinearLayout
                     android:id="@+id/rand"
-
+                    android:layout_below="@id/market_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -229,7 +253,7 @@
 
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-android:layout_below="@+id/rand"                    android:layout_width="match_parent"
+                    android:layout_below="@+id/rand" android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -256,6 +280,7 @@ android:layout_below="@+id/rand"                    android:layout_width="match_
                         android:scaleType="fitCenter"
                         android:padding="10dp"
                         android:layout_height="wrap_content"
+                        android:background="@color/colorSurface"
                         android:src="@drawable/chevron_right"
                 />
 
