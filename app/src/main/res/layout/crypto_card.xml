@@ -96,16 +96,16 @@
 
         <RelativeLayout
                 android:id="@+id/info_layout"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_below="@id/basic_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorSecondary"
         >
-            <view
+            <View
                     android:id="@+id/divider"
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="1dp"
                     android:layout_alignParentTop="true"
                     android:background="@color/colorSecondary"
             />
@@ -120,6 +120,7 @@
                     android:text="@string/app_dummy_text_short"
                     android:background="@color/colorSurface"
                     android:textColor="@color/colorOnSurface"
+                    android:layout_margin="0dp"
                     style="@style/AppTheme.TextView.Medium"
             />
 
