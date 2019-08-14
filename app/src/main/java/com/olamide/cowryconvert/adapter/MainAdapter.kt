@@ -1,7 +1,6 @@
 package com.olamide.cowryconvert.adapter
 
 import android.content.Context
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ import com.olamide.cowryconvert.model.Crypto
 import com.olamide.cowryconvert.model.CurrencyDetailsDisp
 import com.olamide.cowryconvert.model.CurrencyDetailsRaw
 import com.squareup.picasso.Picasso
-import timber.log.Timber
+import kotlinx.android.synthetic.main.crypto_card.view.*
 import java.util.ArrayList
 
 class MainAdapter(
@@ -41,21 +40,7 @@ class MainAdapter(
             view.setOnClickListener(this)
         }
 
-        val basicLayout = view.findViewById<LinearLayout>(R.id.basic_layout)
-        val infoLayout = view.findViewById<RelativeLayout>(R.id.info_layout)
 
-        var ivMore = view.findViewById<ImageView>(R.id.ib_more)
-
-        var ivLogo = view.findViewById<ImageView>(R.id.iv_logo)
-        var tvName = view.findViewById<TextView>(R.id.tv_name)
-        var tvCode = view.findViewById<TextView>(R.id.tv_code)
-        var tvPrice = view.findViewById<TextView>(R.id.tv_price)
-        var tvChange = view.findViewById<TextView>(R.id.tv_change)
-        var tvVolume = view.findViewById<TextView>(R.id.tv_volume)
-        var tvUp = view.findViewById<TextView>(R.id.tv_up)
-        var tvDown = view.findViewById<TextView>(R.id.tv_down)
-        var tvMarket = view.findViewById<TextView>(R.id.market)
-        var tvMarket2 = view.findViewById<TextView>(R.id.market_2)
 
 
         fun cryptoItem(rawDetails: CurrencyDetailsRaw?, dispDetails: CurrencyDetailsDisp?, currentCrypto: Crypto) {
@@ -63,29 +48,29 @@ class MainAdapter(
             Picasso.with(context)
                 .load(COMPARE_IMAGE_BASE_URL + rawDetails!!.imageUrl)
                 .fit()
-                .into(ivLogo)
+                .into(itemView.iv_logo)
 
-            tvName.text = currentCrypto.name
-            tvCode.text = "- " + currentCrypto.code
-            tvPrice.text = dispDetails!!.price
-            tvChange.text = dispDetails!!.changePct24Hour + "%"
+            itemView.tv_name.text = currentCrypto.name
+            itemView.tv_code.text = "- " + currentCrypto.code
+            itemView.tv_price.text = dispDetails!!.price
+            itemView.tv_change.text = dispDetails!!.changePct24Hour + "%"
             if (rawDetails.changePct24Hour < 0) {
-                tvChange.setTextColor(ContextCompat.getColor(context, R.color.red))
+                itemView.tv_change.setTextColor(ContextCompat.getColor(context, R.color.red))
             } else {
-                tvChange.setTextColor(ContextCompat.getColor(context, R.color.green))
+                itemView.tv_change.setTextColor(ContextCompat.getColor(context, R.color.green))
             }
 
-            tvVolume.text = dispDetails!!.volume
-            tvUp.text = dispDetails!!.highDay
-            tvDown.text = dispDetails!!.lowDay
-            tvMarket.text = dispDetails!!.market
-            tvMarket2.text = dispDetails!!.lastMarket
-            ivMore.setOnClickListener(this)
+            itemView.tv_volume.text = dispDetails!!.volume
+            itemView.tv_up.text = dispDetails!!.highDay
+            itemView.tv_down.text = dispDetails!!.lowDay
+            itemView.market.text = dispDetails!!.market
+            itemView.market_2.text = dispDetails!!.lastMarket
+            itemView.iv_more.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
             val adapterPosition = adapterPosition
-            clickListener.onClickListener(adapterPosition, itemView, v.id == ivMore.id)
+            clickListener.onClickListener(adapterPosition, itemView, v.id == itemView.iv_more.id)
 
         }
     }

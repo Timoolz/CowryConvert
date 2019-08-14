@@ -264,7 +264,7 @@
                 <TextView
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/ib_more"
+                        app:layout_constraintEnd_toStartOf="@id/iv_more"
                         android:id="@+id/market"
                         android:text="@string/app_dummy_text_short"
                         android:layout_width="wrap_content"
@@ -277,7 +277,7 @@
                 <ImageView
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:id="@+id/ib_more"
+                        android:id="@+id/iv_more"
                         android:layout_width="wrap_content"
                         android:scaleType="fitCenter"
                         android:padding="10dp"

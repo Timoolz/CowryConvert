@@ -31,18 +31,15 @@ class MainActivity : BaseActivity() {
     lateinit var currentCurrency: String
     lateinit var mainViewModel: MainViewModel
 
-    lateinit var cryptoRv: RecyclerView
     lateinit var layoutManager: LinearLayoutManager
     lateinit var mAdapter: MainAdapter
 
     lateinit var cryptMainData: CompareMultipleResponse
 
 
-    lateinit var res: Resources
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        res = resources
         initDefaultDataConfig()
         bindUiComponents()
         initViewModel()
@@ -51,16 +48,15 @@ class MainActivity : BaseActivity() {
 
     private fun bindUiComponents() {
         layoutManager = LinearLayoutManager(this)
-        cryptoRv = findViewById(R.id.rv_crypto)
-        cryptoRv.layoutManager = layoutManager
-        cryptoRv.isNestedScrollingEnabled = false
+        rv_crypto.layoutManager = layoutManager
+        rv_crypto.isNestedScrollingEnabled = false
 
 
     }
 
     private fun initDefaultDataConfig() {
         getCryptoList()
-        currencies = res.getStringArray(R.array.currency).toMutableList()
+        currencies = resources.getStringArray(R.array.currency).toMutableList()
         currentCurrency = currencies[0]
     }
 
@@ -76,7 +72,7 @@ class MainActivity : BaseActivity() {
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
                     mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this))
-                    cryptoRv.adapter = mAdapter
+                    rv_crypto.adapter = mAdapter
                     populateAdapter()
                     sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(p0: AdapterView<*>?) {
