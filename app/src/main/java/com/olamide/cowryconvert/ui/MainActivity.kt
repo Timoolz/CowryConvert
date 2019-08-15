@@ -1,14 +1,11 @@
 package com.olamide.cowryconvert.ui
 
-import android.app.Activity
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.gson.Gson
 import com.olamide.cowryconvert.R

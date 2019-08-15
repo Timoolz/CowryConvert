@@ -47,8 +47,9 @@ interface ConvertApi {
             : Observable<CompareMultipleResponse>
 
 
-    @GET("histoday")
-    abstract fun getDailyHistory(
+    @GET("{path}")
+    abstract fun getHistoryData(
+        @Path(value = "path", encoded = true) path: String,
         @Query("fsym") base: String,
         @Query("tsym") symbols: String,
         @Query("limit") limit: Int

@@ -12,5 +12,5 @@ data class CompareHistoryResponse(
     @SerializedName("TimeFrom")
     var timeFrom:Long,
     @SerializedName("Data")
-    var data:List<DailyData>
+    var data:List<HistoryData>
 )

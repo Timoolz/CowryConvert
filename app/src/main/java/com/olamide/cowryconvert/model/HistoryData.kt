@@ -2,7 +2,7 @@ package com.olamide.cowryconvert.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DailyData(
+data class HistoryData(
     @SerializedName("time")
     var time: Long,
     @SerializedName("open")
@@ -12,5 +12,9 @@ data class DailyData(
     @SerializedName("low")
     var low: Double,
     @SerializedName("close")
-    var close: Double
+    var close: Double,
+    @SerializedName("volumeFrom")
+    var volumeFrom: Double,
+    @SerializedName("volumeTo")
+    var volumeTo: Double
 )

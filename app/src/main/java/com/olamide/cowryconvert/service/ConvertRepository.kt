@@ -1,6 +1,5 @@
 package com.olamide.cowryconvert.service
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.olamide.cowryconvert.model.CompareHistoryResponse
 import com.olamide.cowryconvert.model.CompareMultipleResponse
 import com.olamide.cowryconvert.model.ConvertResponse
@@ -43,12 +42,13 @@ class ConvertRepository(var convertApi: ConvertApi) {
         )
     }
 
-    fun getMultipleData(
+    fun getHistoryData(
+        daily: Boolean,
         fromSymbol: String,
         toSymbol: String
     ): Observable<CompareHistoryResponse> {
-        return convertApi.getDailyHistory(
-
+        return convertApi.getHistoryData(
+            if(daily)"histoday" else "histohour",
             fromSymbol,
             toSymbol,
             10
