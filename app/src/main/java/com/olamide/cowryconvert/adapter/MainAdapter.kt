@@ -4,10 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -43,7 +39,7 @@ class MainAdapter(
 
 
 
-        fun cryptoItem(rawDetails: CurrencyDetailsRaw?, dispDetails: CurrencyDetailsDisp?, currentCrypto: Crypto) {
+        fun populateCryptoItem(rawDetails: CurrencyDetailsRaw?, dispDetails: CurrencyDetailsDisp?, currentCrypto: Crypto) {
 
             Picasso.with(context)
                 .load(COMPARE_IMAGE_BASE_URL + rawDetails!!.imageUrl)
@@ -97,20 +93,20 @@ class MainAdapter(
         var currentCrypto: Crypto = cryptoList.find { it.code == ArrayList(cryptoData.raw.keys)[position] }!!
         var rawDetails = cryptoData.raw[currentCrypto.code]?.get(currency)
         var dispDetails = cryptoData.display[currentCrypto.code]?.get(currency)
-        holder.cryptoItem(rawDetails, dispDetails, currentCrypto)
+        holder.populateCryptoItem(rawDetails, dispDetails, currentCrypto)
 
 
     }
 
     override fun getItemCount(): Int {
-        if (::cryptoData.isInitialized) {
-            return if (cryptoData.raw.size > 0) {
+        return if (::cryptoData.isInitialized) {
+            if (cryptoData.raw.size > 0) {
                 cryptoData.raw.size
             } else {
                 0
             }
         } else {
-            return if (cryptoList.isNotEmpty()) {
+            if (cryptoList.isNotEmpty()) {
                 cryptoList.size
             } else {
                 0
