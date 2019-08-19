@@ -1,8 +1,10 @@
 package com.olamide.cowryconvert.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,7 +70,7 @@ class MainActivity : BaseActivity() {
 
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
-                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this))
+                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this, currentCurrency, cryptos))
                     rv_crypto.adapter = mAdapter
                     populateAdapter()
                     sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -102,7 +104,8 @@ class MainActivity : BaseActivity() {
         mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
     }
 
-    class CardClicked(val activity: BaseActivity) : MainAdapter.MainAdapterOnClickListener {
+    class CardClicked(val activity: BaseActivity, val currentCurrency: String, val cryptos: List<Crypto>) :
+        MainAdapter.MainAdapterOnClickListener {
         override fun onClickListener(position: Int, view: View, more: Boolean) {
 
             if (view.info_layout.visibility == View.GONE) {
@@ -110,13 +113,16 @@ class MainActivity : BaseActivity() {
             } else if (!more) {
                 view.info_layout.visibility = View.GONE
             } else {
-                activity.showToast("Well we want More")
+                var crypto = cryptos[position]
+                var startDetailIntent = Intent(activity, DetailActivity::class.java)
+                startDetailIntent.putExtra("currency", currentCurrency)
+                startDetailIntent.putExtra("crypto", crypto)
+                activity.startActivity(startDetailIntent)
             }
 
 
         }
     }
-
 
 
     private fun initViewModel() {

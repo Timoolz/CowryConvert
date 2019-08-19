@@ -2,6 +2,7 @@ package com.olamide.cowryconvert.di.module
 
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
+import com.olamide.cowryconvert.ConvertApplication
 import com.olamide.cowryconvert.service.ConvertApi
 import com.olamide.cowryconvert.service.ConvertRepository
 import com.olamide.cowryconvert.viewmodel.factory.ViewModelFactory
@@ -11,7 +12,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(val application: Application) {
+class AppModule(val application: ConvertApplication) {
     @Provides
     @Singleton
     fun provideApplication(): Application = application

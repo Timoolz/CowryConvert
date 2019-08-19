@@ -3,6 +3,7 @@ package com.olamide.cowryconvert.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.olamide.cowryconvert.ConvertApplication
 import com.olamide.cowryconvert.service.ConvertRepository
 import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.di.rx.SchedulersFactory
@@ -25,8 +26,8 @@ class MainViewModel : AndroidViewModel {
     }
 
 
-    fun getMultipleData(fromSymbols: List<String>, toSymbols: List<String>) {
-        disposables.add(convertRepository.getMultipleData(fromSymbols, toSymbols)
+    public fun getMultipleData(fromSymbols:List<String>, toSymbols: List<String>) {
+        disposables.add(convertRepository.getMultipleData(fromSymbols, toSymbols )
             .subscribeOn(schedulersFactory.io())
             .observeOn(schedulersFactory.ui())
             .doOnSubscribe { loader -> mainLiveData.value = VmResponse.loading() }
@@ -37,7 +38,7 @@ class MainViewModel : AndroidViewModel {
 
     }
 
-    fun getMultipleResponse(): MutableLiveData<VmResponse> {
+    public fun getMultipleResponse() :MutableLiveData<VmResponse>{
         return mainLiveData
     }
 

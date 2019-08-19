@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.olamide.cowryconvert.service.ConvertRepository
 import com.olamide.cowryconvert.di.rx.SchedulersFactory
+import com.olamide.cowryconvert.viewmodel.DetailViewModel
 import com.olamide.cowryconvert.viewmodel.MainViewModel
 import javax.inject.Inject
 
@@ -22,6 +23,14 @@ constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java!!)) {
             return MainViewModel(
+                application,
+                convertRepository,
+                schedulersFactory
+            ) as T
+        }
+
+        if (modelClass.isAssignableFrom(DetailViewModel::class.java!!)) {
+            return DetailViewModel(
                 application,
                 convertRepository,
                 schedulersFactory
