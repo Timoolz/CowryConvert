@@ -70,7 +70,7 @@ class MainActivity : BaseActivity() {
 
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
-                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this, currentCurrency, cryptos))
+                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this, currentCurrency))
                     rv_crypto.adapter = mAdapter
                     populateAdapter()
                     sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -104,19 +104,19 @@ class MainActivity : BaseActivity() {
         mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
     }
 
-    class CardClicked(val activity: BaseActivity, val currentCurrency: String, val cryptos: List<Crypto>) :
+    class CardClicked(val activity: BaseActivity, val currentCurrency: String) :
         MainAdapter.MainAdapterOnClickListener {
-        override fun onClickListener(position: Int, view: View, more: Boolean) {
+        override fun onClickListener(currentCrypto: Crypto, view: View, more: Boolean) {
 
             if (view.info_layout.visibility == View.GONE) {
                 view.info_layout.visibility = View.VISIBLE
             } else if (!more) {
                 view.info_layout.visibility = View.GONE
             } else {
-                var crypto = cryptos[position]
+                //var crypto = cryptos[position]
                 var startDetailIntent = Intent(activity, DetailActivity::class.java)
                 startDetailIntent.putExtra("currency", currentCurrency)
-                startDetailIntent.putExtra("crypto", crypto)
+                startDetailIntent.putExtra("crypto", currentCrypto)
                 activity.startActivity(startDetailIntent)
             }
 

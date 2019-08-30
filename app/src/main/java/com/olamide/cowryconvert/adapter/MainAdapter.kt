@@ -65,14 +65,13 @@ class MainAdapter(
         }
 
         override fun onClick(v: View) {
-            val adapterPosition = adapterPosition
-            clickListener.onClickListener(adapterPosition, itemView, v.id == itemView.iv_more.id)
+            clickListener.onClickListener(cryptoList.find { it.code == ArrayList(cryptoData.raw.keys)[adapterPosition] }!!, itemView, v.id == itemView.iv_more.id)
 
         }
     }
 
     interface MainAdapterOnClickListener {
-        fun onClickListener(position: Int, view: View, more: Boolean)
+        fun onClickListener(currentCrypto: Crypto, view: View, more: Boolean)
     }
 
     fun setCryptoConversionData(cryptoData: CompareMultipleResponse, currentCurrency: String) {
