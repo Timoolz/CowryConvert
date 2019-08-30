@@ -3,11 +3,9 @@ package com.olamide.cowryconvert
 import android.app.Activity
 import android.app.Application
 import android.app.Service
-import android.os.Build
-import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import com.olamide.cowryconvert.AppConstants.Companion.COMPARE_BASE_URL
+import com.olamide.cowryconvert.AppConstants.Companion.COMPARE_API_BASE_URL
 import com.olamide.cowryconvert.di.component.DaggerAppComponent
 import com.olamide.cowryconvert.di.module.ApiModule
 import com.olamide.cowryconvert.di.module.AppModule
@@ -42,7 +40,7 @@ class ConvertApplication : Application(), HasActivityInjector,
         DaggerAppComponent
             .builder()
             .appModule(AppModule(this))
-            .apiModule(ApiModule(COMPARE_BASE_URL))
+            .apiModule(ApiModule(COMPARE_API_BASE_URL))
             .build().inject(this)
     }
 

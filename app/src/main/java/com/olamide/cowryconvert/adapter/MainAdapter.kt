@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-import com.olamide.cowryconvert.AppConstants.Companion.COMPARE_IMAGE_BASE_URL
+import com.olamide.cowryconvert.AppConstants.Companion.COMPARE_BASE_URL
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.model.CompareMultipleResponse
 import com.olamide.cowryconvert.model.Crypto
@@ -42,7 +42,7 @@ class MainAdapter(
         fun populateCryptoItem(rawDetails: CurrencyDetailsRaw?, dispDetails: CurrencyDetailsDisp?, currentCrypto: Crypto) {
 
             Picasso.with(context)
-                .load(COMPARE_IMAGE_BASE_URL + rawDetails!!.imageUrl)
+                .load(COMPARE_BASE_URL + rawDetails!!.imageUrl)
                 .fit()
                 .into(itemView.iv_logo)
 

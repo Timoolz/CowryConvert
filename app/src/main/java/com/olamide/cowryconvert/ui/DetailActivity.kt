@@ -1,9 +1,12 @@
 package com.olamide.cowryconvert.ui
 
 import android.os.Bundle
+import android.view.View
+import android.webkit.WebViewClient
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.olamide.cowryconvert.AppConstants
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.model.CompareHistoryResponse
 import com.olamide.cowryconvert.model.Crypto
@@ -28,6 +31,7 @@ class DetailActivity : BaseActivity() {
         setContentView(R.layout.activity_detail)
         initDefaultDataConfig()
         initViewModel()
+        hideWebView()
         bindUiComponents()
 
     }
@@ -66,7 +70,23 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun bindUiComponents() {
-        btcc.text = "- " + currentCrypto.code
+        ivInfo.setOnClickListener {
+            webViewInfo.loadUrl(AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase())
+            showWebView()
+
+        }
+    }
+
+    private fun showWebView() {
+        webViewInfo.visibility = View.VISIBLE
+        ivInfo.visibility = View.INVISIBLE
+        webViewInfo.settings.javaScriptEnabled = true
+        webViewInfo.webViewClient = WebViewClient()
+    }
+
+    private fun hideWebView() {
+        webViewInfo.visibility = View.INVISIBLE
+        ivInfo.visibility = View.VISIBLE
     }
 
     private fun initViewModel() {
