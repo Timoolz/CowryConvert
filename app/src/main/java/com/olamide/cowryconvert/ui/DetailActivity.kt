@@ -1,5 +1,6 @@
 package com.olamide.cowryconvert.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
@@ -31,7 +32,6 @@ class DetailActivity : BaseActivity() {
         setContentView(R.layout.activity_detail)
         initDefaultDataConfig()
         initViewModel()
-        hideWebView()
         bindUiComponents()
 
     }
@@ -71,23 +71,20 @@ class DetailActivity : BaseActivity() {
 
     private fun bindUiComponents() {
         ivInfo.setOnClickListener {
-            webViewInfo.loadUrl(AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase())
-            showWebView()
-
+            var intent = Intent(this, WebActivity::class.java)
+            intent.putExtra("url", AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase())
+            startActivity(intent)
         }
     }
 
-    private fun showWebView() {
-        webViewInfo.visibility = View.VISIBLE
-        ivInfo.visibility = View.INVISIBLE
-        webViewInfo.settings.javaScriptEnabled = true
-        webViewInfo.webViewClient = WebViewClient()
-    }
-
-    private fun hideWebView() {
-        webViewInfo.visibility = View.INVISIBLE
-        ivInfo.visibility = View.VISIBLE
-    }
+//    private fun showWebView() {
+//
+//    }
+//
+//    private fun hideWebView() {
+//        webViewInfo.visibility = View.INVISIBLE
+//        ivInfo.visibility = View.VISIBLE
+//    }
 
     private fun initViewModel() {
         detailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)

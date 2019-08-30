@@ -113,7 +113,6 @@ class MainActivity : BaseActivity() {
             } else if (!more) {
                 view.info_layout.visibility = View.GONE
             } else {
-                //var crypto = cryptos[position]
                 var startDetailIntent = Intent(activity, DetailActivity::class.java)
                 startDetailIntent.putExtra("currency", activity.currentCurrency)
                 startDetailIntent.putExtra("crypto", currentCrypto)
