@@ -2,6 +2,7 @@ package com.olamide.cowryconvert.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -14,7 +15,9 @@ import com.olamide.cowryconvert.model.CurrencyDetailsRaw
 import com.olamide.cowryconvert.model.rx.Status
 import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.viewmodel.DetailViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.crypto_card.view.*
 import timber.log.Timber
 
 class DetailActivity : BaseActivity() {
@@ -63,6 +66,27 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun bindBaseUiComponents() {
+
+        Picasso.with(this)
+            .load(AppConstants.COMPARE_BASE_URL + rawDetails!!.imageUrl)
+            .fit()
+            .into(iv_logo)
+
+        tv_name.text = currentCrypto.name
+        tv_code.text = "- " + currentCrypto.code
+        tv_price.text = dispDetails!!.price
+        tv_change.text = dispDetails!!.changePct24Hour + "%"
+        if (rawDetails.changePct24Hour < 0) {
+            tv_change.setTextColor(ContextCompat.getColor(this, R.color.red))
+        } else {
+            tv_change.setTextColor(ContextCompat.getColor(this, R.color.green))
+        }
+
+        tv_volume.text = dispDetails!!.volume
+        tv_up.text = dispDetails!!.highDay
+        tv_down.text = dispDetails!!.lowDay
+        market.text = dispDetails!!.market
+        market_2.text = dispDetails!!.lastMarket
 
 
         ivInfo.setOnClickListener {
