@@ -1,8 +1,11 @@
 package com.olamide.cowryconvert.model
 
+import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class CurrencyDetailsDisp(
     @SerializedName("FROMSYMBOL")
     @JsonProperty("FROMSYMBOL")
@@ -58,4 +61,4 @@ data class CurrencyDetailsDisp(
     @SerializedName("IMAGEURL")
     @JsonProperty("IMAGEURL")
     var imageUrl: String
-)
+):Parcelable

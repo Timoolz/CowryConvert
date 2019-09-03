@@ -40,8 +40,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initDefaultDataConfig()
+        initViewModel(savedInstanceState)
+
         bindUiComponents()
-        initViewModel()
 
     }
 
@@ -56,7 +57,24 @@ class MainActivity : BaseActivity() {
     private fun initDefaultDataConfig() {
         getCryptoList()
         currencies = resources.getStringArray(R.array.currency).toMutableList()
-        currentCurrency = currencies[0]
+
+    }
+
+    private fun initViewModel(savedInstanceState: Bundle?) {
+        mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        mainViewModel.getCurrency().observe(this, Observer<String> { response ->
+            currentCurrency = response
+
+        })
+        mainViewModel.getMultipleResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
+
+        if (savedInstanceState == null) {
+            currentCurrency = currencies[0]
+            mainViewModel.setCurrency(currencies[0])
+            getCryptoDetails()
+        }
+
+
     }
 
 
@@ -70,15 +88,14 @@ class MainActivity : BaseActivity() {
 
                     cryptMainData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
-                    mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this))
-                    rv_crypto.adapter = mAdapter
+
                     populateAdapter()
                     sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(p0: AdapterView<*>?) {
                         }
 
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            currentCurrency = sp_currency.selectedItem.toString()
+                            mainViewModel.setCurrency(sp_currency.selectedItem.toString())
                             populateAdapter()
                         }
 
@@ -101,6 +118,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun populateAdapter() {
+        mAdapter = MainAdapter(this, cryptos, currentCurrency, CardClicked(this))
+        rv_crypto.adapter = mAdapter
         mAdapter.setCryptoConversionData(cryptMainData, currentCurrency)
     }
 
@@ -116,6 +135,14 @@ class MainActivity : BaseActivity() {
                 var startDetailIntent = Intent(activity, DetailActivity::class.java)
                 startDetailIntent.putExtra("currency", activity.currentCurrency)
                 startDetailIntent.putExtra("crypto", currentCrypto)
+                startDetailIntent.putExtra(
+                    "rawDet",
+                    activity.cryptMainData.raw[currentCrypto.code]?.get(activity.currentCurrency)
+                )
+                startDetailIntent.putExtra(
+                    "displayDet",
+                    activity.cryptMainData.display[currentCrypto.code]?.get(activity.currentCurrency)
+                )
                 activity.startActivity(startDetailIntent)
             }
 
@@ -123,12 +150,6 @@ class MainActivity : BaseActivity() {
         }
     }
 
-
-    private fun initViewModel() {
-        mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-        mainViewModel.getMultipleResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
-        getCryptoDetails()
-    }
 
     fun getCryptoList() {
         val text = resources.openRawResource(R.raw.cryptos)

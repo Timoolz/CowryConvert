@@ -2,8 +2,6 @@ package com.olamide.cowryconvert.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.webkit.WebViewClient
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -11,18 +9,22 @@ import com.olamide.cowryconvert.AppConstants
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.model.CompareHistoryResponse
 import com.olamide.cowryconvert.model.Crypto
+import com.olamide.cowryconvert.model.CurrencyDetailsDisp
+import com.olamide.cowryconvert.model.CurrencyDetailsRaw
 import com.olamide.cowryconvert.model.rx.Status
 import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.crypto_card.view.*
 import timber.log.Timber
 
 class DetailActivity : BaseActivity() {
 
-    lateinit var currentCurrency: String
     lateinit var detailViewModel: DetailViewModel
+
+    lateinit var currentCurrency: String
     lateinit var cryptoHistData: CompareHistoryResponse
+    lateinit var rawDetails: CurrencyDetailsRaw
+    lateinit var dispDetails: CurrencyDetailsDisp
     lateinit var currentCrypto: Crypto
     var daily = false
 
@@ -31,14 +33,52 @@ class DetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         initDefaultDataConfig()
-        initViewModel()
-        bindUiComponents()
+        initViewModel(savedInstanceState)
+        bindBaseUiComponents()
 
     }
 
     private fun initDefaultDataConfig() {
         currentCrypto = intent.getParcelableExtra("crypto")
-        currentCurrency = intent.getStringExtra("currency")
+        currentCurrency = intent.getStringExtra("currency")!!
+        rawDetails = intent.getParcelableExtra("rawDet")
+        dispDetails = intent.getParcelableExtra("displayDet")
+
+    }
+
+    private fun initViewModel(savedInstanceState: Bundle?) {
+        detailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)
+        detailViewModel.getDaily().observe(this, Observer<Boolean> { response ->
+            daily = response
+            getHistoryDetails()
+
+        })
+        detailViewModel.getDetailResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
+
+        if (savedInstanceState == null) {
+            detailViewModel.setDaily(daily)
+            //getHistoryDetails()
+
+        }
+    }
+
+    private fun bindBaseUiComponents() {
+
+
+        ivInfo.setOnClickListener {
+            var intent = Intent(this, WebActivity::class.java)
+            intent.putExtra(
+                "url",
+                AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase()
+            )
+            startActivity(intent)
+        }
+    }
+
+
+    fun getHistoryDetails() {
+        detailViewModel.getDetailData(daily, currentCrypto.code, currentCurrency)
+
     }
 
     private fun handleResponse(vmResponse: VmResponse) {
@@ -51,7 +91,6 @@ class DetailActivity : BaseActivity() {
 
                     cryptoHistData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareHistoryResponse::class.java)
-                    bindUiComponents()
 
 
                 } catch (e: Exception) {
@@ -69,31 +108,5 @@ class DetailActivity : BaseActivity() {
         }
     }
 
-    private fun bindUiComponents() {
-        ivInfo.setOnClickListener {
-            var intent = Intent(this, WebActivity::class.java)
-            intent.putExtra("url", AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase())
-            startActivity(intent)
-        }
-    }
 
-//    private fun showWebView() {
-//
-//    }
-//
-//    private fun hideWebView() {
-//        webViewInfo.visibility = View.INVISIBLE
-//        ivInfo.visibility = View.VISIBLE
-//    }
-
-    private fun initViewModel() {
-        detailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)
-        detailViewModel.getDetailResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
-        getHistoryDetails()
-    }
-
-    fun getHistoryDetails() {
-        detailViewModel.getDetailData(daily, currentCrypto.code, currentCurrency)
-
-    }
 }

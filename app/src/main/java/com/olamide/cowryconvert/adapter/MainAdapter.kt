@@ -65,6 +65,9 @@ class MainAdapter(
         }
 
         override fun onClick(v: View) {
+
+//            var rawDetails:CurrencyDetailsRaw = cryptoData.raw.keys[adapterPosition]
+//            var dispDetails: CurrencyDetailsDisp = cryptoData.display
             clickListener.onClickListener(cryptoList.find { it.code == ArrayList(cryptoData.raw.keys)[adapterPosition] }!!, itemView, v.id == itemView.iv_more.id)
 
         }

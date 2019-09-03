@@ -11,7 +11,7 @@
         tools:context=".ui.DetailActivity">
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
     >
 
 
@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ivInfo"
                 android:padding="10dp"
+                android:layout_margin="5dp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/info"/>
     </RelativeLayout>
