@@ -2,6 +2,8 @@ package com.olamide.cowryconvert.service
 
 import android.os.Bundle
 import com.olamide.cowryconvert.model.*
+import com.olamide.cowryconvert.model.viewfilter.ViewFrequency
+import com.olamide.cowryconvert.model.viewfilter.ViewRange
 import io.reactivex.Observable
 
 class ConvertRepository(var convertApi: ConvertApi) {

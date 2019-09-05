@@ -15,6 +15,8 @@ import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.model.*
 import com.olamide.cowryconvert.model.rx.Status
 import com.olamide.cowryconvert.model.rx.VmResponse
+import com.olamide.cowryconvert.model.viewfilter.ViewFrequency
+import com.olamide.cowryconvert.model.viewfilter.ViewRange
 import com.olamide.cowryconvert.viewmodel.DetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*

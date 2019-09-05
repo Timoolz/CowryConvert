@@ -1,4 +1,4 @@
-package com.olamide.cowryconvert.model
+package com.olamide.cowryconvert.model.viewfilter
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
