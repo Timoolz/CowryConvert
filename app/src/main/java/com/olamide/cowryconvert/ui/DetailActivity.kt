@@ -142,13 +142,11 @@ class DetailActivity : BaseActivity() {
         gvDetails.viewport.setMaxY(cryptoHistData.data.maxBy { it.y }!!.y + padY)
         gvDetails.viewport.isYAxisBoundsManual = true
 
-
         // enable scaling and scrolling
         gvDetails.viewport.isScalable = true
         gvDetails.viewport.isScrollable = true
 
         gvDetails.gridLabelRenderer.reloadStyles()
-
 
         // styling path
         val pathSeries = LineGraphSeries<DataPoint>(cryptoHistData.data.toTypedArray())
