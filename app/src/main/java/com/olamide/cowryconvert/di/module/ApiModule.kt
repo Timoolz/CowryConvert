@@ -64,9 +64,9 @@ class ApiModule(private val baseUrl: String) {
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            //.addConverterFactory(GsonConverterFactory.create(gson))
             //.addConverterFactory(MoshiConverterFactory.create(moshi))
-            //.addConverterFactory(JacksonConverterFactory.create(jackson))
+            .addConverterFactory(JacksonConverterFactory.create(jackson))
             .build()
     }
 
