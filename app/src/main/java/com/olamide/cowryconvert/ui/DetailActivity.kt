@@ -2,6 +2,8 @@ package com.olamide.cowryconvert.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,6 +22,7 @@ import com.olamide.cowryconvert.model.viewfilter.ViewRange
 import com.olamide.cowryconvert.viewmodel.DetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import java.text.SimpleDateFormat
 
@@ -33,7 +36,7 @@ class DetailActivity : BaseActivity() {
     lateinit var rawDetails: CurrencyDetailsRaw
     lateinit var dispDetails: CurrencyDetailsDisp
     lateinit var currentCrypto: Crypto
-    lateinit var viewBundle: Bundle
+     var viewBundle = Bundle()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,10 +66,9 @@ class DetailActivity : BaseActivity() {
         detailViewModel.getDetailResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
         if (savedInstanceState == null) {
-            viewBundle = Bundle()
             viewBundle.putParcelable("range", ViewRange.WEEK)
             viewBundle.putParcelable("frequency", ViewFrequency.HOURLY)
-            detailViewModel.setViewBundle(viewBundle)
+            setBundleInVM()
             //getHistoryDetails()
 
         }
@@ -95,15 +97,8 @@ class DetailActivity : BaseActivity() {
         market.text = dispDetails.market
         market_2.text = dispDetails.lastMarket
 
+        initClickHandlers()
 
-        ivInfo.setOnClickListener {
-            var intent = Intent(this, WebActivity::class.java)
-            intent.putExtra(
-                "url",
-                AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase()
-            )
-            startActivity(intent)
-        }
     }
 
 
@@ -132,7 +127,8 @@ class DetailActivity : BaseActivity() {
         //for Date Formatting
         gvDetails.gridLabelRenderer.setHumanRounding(true)
         //gvDetails.gridLabelRenderer.numHorizontalLabels = 2
-        gvDetails.gridLabelRenderer.labelFormatter = CurrencyAsYDateAsXAxisLabelFormatter(this, SimpleDateFormat("dd-MMM"), dispDetails.toSymbol)
+        gvDetails.gridLabelRenderer.labelFormatter =
+            CurrencyAsYDateAsXAxisLabelFormatter(this, SimpleDateFormat("dd-MMM"), dispDetails.toSymbol)
 
         // set manual x bounds to have nice steps
         gvDetails.viewport.setMinX(cryptoHistData.data.first().x)
@@ -141,7 +137,7 @@ class DetailActivity : BaseActivity() {
 
 
         // set manual y bounds to have nice steps
-        val padY = (cryptoHistData.data.maxBy { it.y }!!.y *0.01)
+        val padY = (cryptoHistData.data.maxBy { it.y }!!.y * 0.01)
         gvDetails.viewport.setMinY(cryptoHistData.data.minBy { it.y }!!.y - padY)
         gvDetails.viewport.setMaxY(cryptoHistData.data.maxBy { it.y }!!.y + padY)
         gvDetails.viewport.isYAxisBoundsManual = true
@@ -194,6 +190,64 @@ class DetailActivity : BaseActivity() {
             else -> {
             }
         }
+    }
+
+    public fun setBundleInVM() {
+        detailViewModel.setViewBundle(viewBundle)
+    }
+
+    private fun initClickHandlers() {
+        //launch info webview
+        ivInfo.setOnClickListener {
+            val intent = Intent(this, WebActivity::class.java)
+            intent.putExtra(
+                "url",
+                AppConstants.COMPARE_BASE_URL + "/coins/" + currentCrypto.code.toLowerCase() + "/overview/" + currentCurrency.toLowerCase()
+            )
+            startActivity(intent)
+        }
+
+//        //Change graph Frequency
+//        sp_frequency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//            }
+//
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                viewBundle.putParcelable(
+//                    "frequency",
+//                    ViewFrequency.valueOf(sp_frequency.selectedItem.toString().toUpperCase())
+//                )
+//                setBundleInVM()
+//            }
+//
+//        }
+
+        //set Onclick listeners for range
+        btDaily.setOnClickListener {
+            viewBundle.putParcelable(
+                "range",
+                ViewRange.DAY
+            )
+            setBundleInVM()
+        }
+
+        btWeekly.setOnClickListener {
+            viewBundle.putParcelable(
+                "range",
+                ViewRange.WEEK
+            )
+            setBundleInVM()
+        }
+
+        btMonthly.setOnClickListener {
+            viewBundle.putParcelable(
+                "range",
+                ViewRange.MONTH
+            )
+            setBundleInVM()
+        }
+
+
     }
 
 

@@ -359,6 +359,16 @@
                     android:text="@string/bt_day"
             />
 
+            <Spinner
+                    android:id="@+id/sp_frequency"
+                    style="@style/AppTheme.TextView.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:entries="@array/view_freq"
+
+            />
+
         </LinearLayout>
     </RelativeLayout>
 
