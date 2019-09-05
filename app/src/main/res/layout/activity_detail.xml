@@ -280,7 +280,7 @@
 
                     </LinearLayout>
 
-                    <ImageView
+                    <com.jjoe64.graphview.GraphView
                             android:layout_below="@id/rand"
                             android:layout_width="match_parent"
                             android:layout_height="350dp"
@@ -315,7 +315,6 @@
                                 android:padding="10dp"
                                 android:layout_height="wrap_content"
                                 android:background="@color/colorSurface"
-                                android:src="@drawable/chevron_right"
                         />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,19 @@
 package com.olamide.cowryconvert.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.jjoe64.graphview.GridLabelRenderer
+import com.jjoe64.graphview.LegendRenderer
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
 import com.olamide.cowryconvert.AppConstants
+import com.olamide.cowryconvert.CurrencyAsYDateAsXAxisLabelFormatter
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.model.CompareHistoryResponse
 import com.olamide.cowryconvert.model.Crypto
@@ -19,6 +26,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.crypto_card.view.*
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class DetailActivity : BaseActivity() {
 
@@ -68,25 +78,25 @@ class DetailActivity : BaseActivity() {
     private fun bindBaseUiComponents() {
 
         Picasso.with(this)
-            .load(AppConstants.COMPARE_BASE_URL + rawDetails!!.imageUrl)
+            .load(AppConstants.COMPARE_BASE_URL + rawDetails.imageUrl)
             .fit()
             .into(iv_logo)
 
         tv_name.text = currentCrypto.name
         tv_code.text = "- " + currentCrypto.code
-        tv_price.text = dispDetails!!.price
-        tv_change.text = dispDetails!!.changePct24Hour + "%"
+        tv_price.text = dispDetails.price
+        tv_change.text = dispDetails.changePct24Hour + "%"
         if (rawDetails.changePct24Hour < 0) {
             tv_change.setTextColor(ContextCompat.getColor(this, R.color.red))
         } else {
             tv_change.setTextColor(ContextCompat.getColor(this, R.color.green))
         }
 
-        tv_volume.text = dispDetails!!.volume
-        tv_up.text = dispDetails!!.highDay
-        tv_down.text = dispDetails!!.lowDay
-        market.text = dispDetails!!.market
-        market_2.text = dispDetails!!.lastMarket
+        tv_volume.text = dispDetails.volume
+        tv_up.text = dispDetails.highDay
+        tv_down.text = dispDetails.lowDay
+        market.text = dispDetails.market
+        market_2.text = dispDetails.lastMarket
 
 
         ivInfo.setOnClickListener {
@@ -105,6 +115,62 @@ class DetailActivity : BaseActivity() {
 
     }
 
+
+    private fun displayGraph() {
+
+        // styling viewport
+        //gvDetails.viewport.backgroundColor = Color.argb(255, 222, 222, 222)
+        gvDetails.viewport.setDrawBorder(true)
+        gvDetails.viewport.borderColor = ContextCompat.getColor(this, R.color.colorOnBackground)
+
+        // styling grid/labels
+        gvDetails.gridLabelRenderer.gridColor = ContextCompat.getColor(this, R.color.colorOnBackground)
+        gvDetails.gridLabelRenderer.isHighlightZeroLines = true
+        gvDetails.gridLabelRenderer.horizontalLabelsColor = ContextCompat.getColor(this, R.color.colorOnBackground)
+        gvDetails.gridLabelRenderer.verticalLabelsColor = ContextCompat.getColor(this, R.color.colorOnBackground)
+        gvDetails.gridLabelRenderer.verticalLabelsVAlign = GridLabelRenderer.VerticalLabelsVAlign.MID
+        gvDetails.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.NONE
+
+        gvDetails.gridLabelRenderer.numVerticalLabels = 4
+        //for Date Formatting
+        gvDetails.gridLabelRenderer.setHumanRounding(true)
+        //gvDetails.gridLabelRenderer.numHorizontalLabels = 2
+        gvDetails.gridLabelRenderer.labelFormatter = CurrencyAsYDateAsXAxisLabelFormatter(this, SimpleDateFormat("dd-MMM"), dispDetails.toSymbol)
+
+        // set manual x bounds to have nice steps
+        gvDetails.viewport.setMinX(cryptoHistData.data.first().x)
+        gvDetails.viewport.setMaxX(cryptoHistData.data.last().x)
+        gvDetails.viewport.isXAxisBoundsManual = true
+
+
+        // set manual y bounds to have nice steps
+        val padY = (cryptoHistData.data.maxBy { it.y }!!.y *0.01)
+        gvDetails.viewport.setMinY(cryptoHistData.data.minBy { it.y }!!.y - padY)
+        gvDetails.viewport.setMaxY(cryptoHistData.data.maxBy { it.y }!!.y + padY)
+        gvDetails.viewport.isYAxisBoundsManual = true
+
+
+        // enable scaling and scrolling
+        gvDetails.viewport.isScalable = true
+        gvDetails.viewport.isScrollable = true
+
+        gvDetails.gridLabelRenderer.reloadStyles()
+
+
+        // styling path
+        var pathSeries = LineGraphSeries<DataPoint>(cryptoHistData.data.toTypedArray())
+        pathSeries.color = ContextCompat.getColor(this, R.color.green)
+        //pathSeries.isDrawBackground = true
+        //pathSeries.backgroundColor = Color.argb(100, 255, 255, 0)
+        //pathSeries.backgroundColor = ContextCompat.getColor(this, R.color.graph_path)
+        pathSeries.isDrawDataPoints = true
+        pathSeries.dataPointsRadius = 2.5f
+        pathSeries.thickness = 3
+
+        gvDetails.addSeries(pathSeries)
+
+    }
+
     private fun handleResponse(vmResponse: VmResponse) {
         when (vmResponse.status) {
             Status.LOADING -> {
@@ -115,6 +181,7 @@ class DetailActivity : BaseActivity() {
 
                     cryptoHistData =
                         jacksonObjectMapper().convertValue(vmResponse.data, CompareHistoryResponse::class.java)
+                    displayGraph()
 
 
                 } catch (e: Exception) {

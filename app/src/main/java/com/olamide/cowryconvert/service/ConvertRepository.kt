@@ -51,7 +51,7 @@ class ConvertRepository(var convertApi: ConvertApi) {
             if(daily)"histoday" else "histohour",
             fromSymbol,
             toSymbol,
-            10
+            if(daily)31 else 240
         )
     }
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--<attr name="pathColor" format="color"/>-->
+    <!--<attr name="gradientColorEnd" format="color"/>-->
+
+    <!--<declare-styleable name="GraphView">-->
+        <!--<attr name="pathColor"/>-->
+        <!--<attr name="gradientColorEnd"/>-->
+    <!--</declare-styleable>-->
+
+</resources>

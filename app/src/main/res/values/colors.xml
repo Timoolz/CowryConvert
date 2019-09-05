@@ -22,6 +22,7 @@
     <color name="green">#32CD32</color>
 
     <color name="red">#FF4500</color>
+    <color name="graph_path">#f06682</color>
 
 
 </resources>

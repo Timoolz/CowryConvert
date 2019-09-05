@@ -75,8 +75,8 @@
     <string name="volume">Volume</string>
 
     <string-array name="currency">
-        <item>NGN</item>
         <item>USD</item>
+        <item>NGN</item>
         <item>EUR</item>
         <item>CAD</item>
     </string-array>
