@@ -1,8 +1,7 @@
 package com.olamide.cowryconvert.service
 
-import com.olamide.cowryconvert.model.CompareHistoryResponse
-import com.olamide.cowryconvert.model.CompareMultipleResponse
-import com.olamide.cowryconvert.model.ConvertResponse
+import android.os.Bundle
+import com.olamide.cowryconvert.model.*
 import io.reactivex.Observable
 
 class ConvertRepository(var convertApi: ConvertApi) {
@@ -43,15 +42,51 @@ class ConvertRepository(var convertApi: ConvertApi) {
     }
 
     fun getHistoryData(
-        daily: Boolean,
+        bundle: Bundle,
         fromSymbol: String,
         toSymbol: String
     ): Observable<CompareHistoryResponse> {
+        val viewRange: ViewRange = bundle.getParcelable("range")!!
+        val viewFrequency: ViewFrequency = bundle.getParcelable("frequency")!!
+        val url: String
+        val limit: Int
+
+        when (viewFrequency) {
+            ViewFrequency.HOURLY -> {
+                url = "histohour"
+                limit = when (viewRange) {
+                    ViewRange.DAY -> {
+                        24
+                    }
+                    ViewRange.WEEK -> {
+                        168
+                    }
+                    ViewRange.MONTH -> {
+                        744
+                    }
+                }
+            }
+            ViewFrequency.DAILY -> {
+                url = "histoday"
+                limit = when (viewRange) {
+                    ViewRange.DAY -> {
+                        1
+                    }
+                    ViewRange.WEEK -> {
+                        7
+                    }
+                    ViewRange.MONTH -> {
+                        31
+                    }
+                }
+            }
+        }
+
         return convertApi.getHistoryData(
-            if(daily)"histoday" else "histohour",
+            url,
             fromSymbol,
             toSymbol,
-            if(daily)31 else 240
+            limit
         )
     }
 

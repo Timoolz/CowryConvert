@@ -26,6 +26,7 @@
 
 
         <androidx.cardview.widget.CardView
+                android:id="@+id/body"
                 android:layout_below="@id/ivInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -320,12 +321,45 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                 </RelativeLayout>
             </RelativeLayout>
 
 
         </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/body"
+                android:layout_margin="@dimen/app_corner_radius"
+                android:gravity="center"
+        >
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btMonthly"
+                    style="@style/AppTheme.TextView.Medium"
+                    android:text="@string/bt_month"
+            />
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btWeekly"
+                    style="@style/AppTheme.TextView.Medium"
+                    android:text="@string/bt_week"
+            />
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btDaily"
+                    style="@style/AppTheme.TextView.Medium"
+                    android:text="@string/bt_day"
+            />
+
+        </LinearLayout>
     </RelativeLayout>
 
 

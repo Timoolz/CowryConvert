@@ -1,33 +1,25 @@
 package com.olamide.cowryconvert.ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jjoe64.graphview.GridLabelRenderer
-import com.jjoe64.graphview.LegendRenderer
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.olamide.cowryconvert.AppConstants
 import com.olamide.cowryconvert.CurrencyAsYDateAsXAxisLabelFormatter
 import com.olamide.cowryconvert.R
-import com.olamide.cowryconvert.model.CompareHistoryResponse
-import com.olamide.cowryconvert.model.Crypto
-import com.olamide.cowryconvert.model.CurrencyDetailsDisp
-import com.olamide.cowryconvert.model.CurrencyDetailsRaw
+import com.olamide.cowryconvert.model.*
 import com.olamide.cowryconvert.model.rx.Status
 import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.viewmodel.DetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.crypto_card.view.*
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class DetailActivity : BaseActivity() {
@@ -39,7 +31,7 @@ class DetailActivity : BaseActivity() {
     lateinit var rawDetails: CurrencyDetailsRaw
     lateinit var dispDetails: CurrencyDetailsDisp
     lateinit var currentCrypto: Crypto
-    var daily = false
+    lateinit var viewBundle: Bundle
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,15 +53,18 @@ class DetailActivity : BaseActivity() {
 
     private fun initViewModel(savedInstanceState: Bundle?) {
         detailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)
-        detailViewModel.getDaily().observe(this, Observer<Boolean> { response ->
-            daily = response
+        detailViewModel.getViewBundle().observe(this, Observer<Bundle> { response ->
+            viewBundle = response
             getHistoryDetails()
 
         })
         detailViewModel.getDetailResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
         if (savedInstanceState == null) {
-            detailViewModel.setDaily(daily)
+            viewBundle = Bundle()
+            viewBundle.putParcelable("range", ViewRange.WEEK)
+            viewBundle.putParcelable("frequency", ViewFrequency.HOURLY)
+            detailViewModel.setViewBundle(viewBundle)
             //getHistoryDetails()
 
         }
@@ -111,7 +106,7 @@ class DetailActivity : BaseActivity() {
 
 
     fun getHistoryDetails() {
-        detailViewModel.getDetailData(daily, currentCrypto.code, currentCurrency)
+        detailViewModel.getDetailData(viewBundle, currentCrypto.code, currentCurrency)
 
     }
 
@@ -158,7 +153,7 @@ class DetailActivity : BaseActivity() {
 
 
         // styling path
-        var pathSeries = LineGraphSeries<DataPoint>(cryptoHistData.data.toTypedArray())
+        val pathSeries = LineGraphSeries<DataPoint>(cryptoHistData.data.toTypedArray())
         pathSeries.color = ContextCompat.getColor(this, R.color.green)
         //pathSeries.isDrawBackground = true
         //pathSeries.backgroundColor = Color.argb(100, 255, 255, 0)

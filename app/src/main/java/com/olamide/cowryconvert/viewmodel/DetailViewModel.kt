@@ -1,6 +1,7 @@
 package com.olamide.cowryconvert.viewmodel
 
 import android.app.Application
+import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +19,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     private val disposables = CompositeDisposable()
     private val detailLiveData = MutableLiveData<VmResponse>()
 
-    private val dailyLive = MutableLiveData<Boolean>()
+    private val viewBundleLive = MutableLiveData<Bundle>()
 
     private lateinit var convertRepository: ConvertRepository
     private lateinit var schedulersFactory: SchedulersFactory
@@ -33,8 +34,8 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-    public fun getDetailData(daily: Boolean, fromSymbol: String, toSymbol: String) {
-        disposables.add(convertRepository.getHistoryData(daily, fromSymbol, toSymbol)
+    public fun getDetailData(bundle: Bundle, fromSymbol: String, toSymbol: String) {
+        disposables.add(convertRepository.getHistoryData(bundle, fromSymbol, toSymbol)
             .subscribeOn(schedulersFactory.io())
             .observeOn(schedulersFactory.ui())
             .doOnSubscribe { loader -> detailLiveData.value = VmResponse.loading() }
@@ -50,12 +51,12 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-    public fun setDaily(daily: Boolean) {
-        dailyLive.value = daily
+    public fun setViewBundle(viewBundle: Bundle) {
+        viewBundleLive.value = viewBundle
     }
 
-    public fun getDaily(): LiveData<Boolean> {
-        return dailyLive
+    public fun getViewBundle(): LiveData<Bundle> {
+        return viewBundleLive
     }
 
 
