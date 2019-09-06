@@ -157,9 +157,22 @@ class DetailActivity : BaseActivity() {
         pathSeries.isDrawDataPoints = true
         pathSeries.dataPointsRadius = 2.5f
         pathSeries.thickness = 3
-
+        gvDetails.removeAllSeries()
         gvDetails.addSeries(pathSeries)
 
+    }
+
+    private fun modifyGraphParam() {
+        val viewRange: ViewRange = viewBundle.getParcelable("range")!!
+        val viewFrequency: ViewFrequency = viewBundle.getParcelable("frequency")!!
+
+//        if (viewFrequency == ViewFrequency.DAILY) {
+//            bt_freq_day.visibility = View.INVISIBLE
+//            bt_freq_hour.visibility = View.VISIBLE
+//        } else {
+//            bt_freq_hour.visibility = View.INVISIBLE
+//            bt_freq_day.visibility = View.VISIBLE
+//        }
     }
 
     private fun handleResponse(vmResponse: VmResponse) {
@@ -190,7 +203,7 @@ class DetailActivity : BaseActivity() {
         }
     }
 
-    public fun setBundleInVM() {
+     fun setBundleInVM() {
         detailViewModel.setViewBundle(viewBundle)
     }
 
@@ -205,20 +218,20 @@ class DetailActivity : BaseActivity() {
             startActivity(intent)
         }
 
-//        //Change graph Frequency
-//        sp_frequency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//            }
-//
-//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//                viewBundle.putParcelable(
-//                    "frequency",
-//                    ViewFrequency.valueOf(sp_frequency.selectedItem.toString().toUpperCase())
-//                )
-//                setBundleInVM()
-//            }
-//
-//        }
+        //Change graph Frequency
+        sp_frequency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewBundle.putParcelable(
+                    "frequency",
+                    ViewFrequency.valueOf(parent!!.selectedItem.toString().toUpperCase())
+                )
+                setBundleInVM()
+            }
+
+        }
 
         //set Onclick listeners for range
         btDaily.setOnClickListener {
