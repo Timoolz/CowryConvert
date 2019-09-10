@@ -36,7 +36,7 @@ class DetailActivity : BaseActivity() {
     lateinit var rawDetails: CurrencyDetailsRaw
     lateinit var dispDetails: CurrencyDetailsDisp
     lateinit var currentCrypto: Crypto
-     var viewBundle = Bundle()
+    var viewBundle = Bundle()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,21 +49,23 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun initDefaultDataConfig() {
-        currentCrypto = intent.getParcelableExtra("crypto")
+        currentCrypto = intent.getParcelableExtra("crypto")!!
         currentCurrency = intent.getStringExtra("currency")!!
-        rawDetails = intent.getParcelableExtra("rawDet")
-        dispDetails = intent.getParcelableExtra("displayDet")
+        rawDetails = intent.getParcelableExtra("rawDet")!!
+        dispDetails = intent.getParcelableExtra("displayDet")!!
 
     }
 
     private fun initViewModel(savedInstanceState: Bundle?) {
-        detailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)
+        detailViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)
         detailViewModel.getViewBundle().observe(this, Observer<Bundle> { response ->
             viewBundle = response
             getHistoryDetails()
 
         })
-        detailViewModel.getDetailResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
+        detailViewModel.getDetailResponse()
+            .observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
         if (savedInstanceState == null) {
             viewBundle.putParcelable("range", ViewRange.WEEK)
@@ -116,19 +118,38 @@ class DetailActivity : BaseActivity() {
         gvDetails.viewport.borderColor = ContextCompat.getColor(this, R.color.colorOnBackground)
 
         // styling grid/labels
-        gvDetails.gridLabelRenderer.gridColor = ContextCompat.getColor(this, R.color.colorOnBackground)
+        gvDetails.gridLabelRenderer.gridColor =
+            ContextCompat.getColor(this, R.color.colorOnBackground)
         gvDetails.gridLabelRenderer.isHighlightZeroLines = true
-        gvDetails.gridLabelRenderer.horizontalLabelsColor = ContextCompat.getColor(this, R.color.colorOnBackground)
-        gvDetails.gridLabelRenderer.verticalLabelsColor = ContextCompat.getColor(this, R.color.colorOnBackground)
-        gvDetails.gridLabelRenderer.verticalLabelsVAlign = GridLabelRenderer.VerticalLabelsVAlign.MID
-        gvDetails.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.NONE
+        gvDetails.gridLabelRenderer.horizontalLabelsColor =
+            ContextCompat.getColor(this, R.color.colorOnBackground)
+        gvDetails.gridLabelRenderer.verticalLabelsColor =
+            ContextCompat.getColor(this, R.color.colorOnBackground)
+        gvDetails.gridLabelRenderer.verticalLabelsVAlign =
+            GridLabelRenderer.VerticalLabelsVAlign.MID
+        gvDetails.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.BOTH
 
         gvDetails.gridLabelRenderer.numVerticalLabels = 4
         //for Date Formatting
         gvDetails.gridLabelRenderer.setHumanRounding(true)
-        //gvDetails.gridLabelRenderer.numHorizontalLabels = 2
-        gvDetails.gridLabelRenderer.labelFormatter =
-            CurrencyAsYDateAsXAxisLabelFormatter(this, SimpleDateFormat("dd-MMM"), dispDetails.toSymbol)
+        gvDetails.gridLabelRenderer.numHorizontalLabels = 3
+
+        if (ViewFrequency.DAILY == viewBundle.getParcelable("frequency")!!) {
+            gvDetails.gridLabelRenderer.labelFormatter =
+                CurrencyAsYDateAsXAxisLabelFormatter(
+                    this,
+                    SimpleDateFormat("dd-MMM"),
+                    dispDetails.toSymbol
+                )
+        } else {
+            gvDetails.gridLabelRenderer.labelFormatter =
+                CurrencyAsYDateAsXAxisLabelFormatter(
+                    this,
+                    SimpleDateFormat("dd-MMM HH:mm"),
+                    dispDetails.toSymbol
+                )
+        }
+
 
         // set manual x bounds to have nice steps
         gvDetails.viewport.setMinX(cryptoHistData.data.first().x)
@@ -166,13 +187,27 @@ class DetailActivity : BaseActivity() {
         val viewRange: ViewRange = viewBundle.getParcelable("range")!!
         val viewFrequency: ViewFrequency = viewBundle.getParcelable("frequency")!!
 
-//        if (viewFrequency == ViewFrequency.DAILY) {
-//            bt_freq_day.visibility = View.INVISIBLE
-//            bt_freq_hour.visibility = View.VISIBLE
-//        } else {
-//            bt_freq_hour.visibility = View.INVISIBLE
-//            bt_freq_day.visibility = View.VISIBLE
-//        }
+        when (viewRange) {
+            ViewRange.DAY -> {
+                btDaily.isEnabled = false
+                btWeekly.isEnabled = true
+                btMonthly.isEnabled = true
+
+            }
+
+            ViewRange.WEEK -> {
+                btDaily.isEnabled = true
+                btWeekly.isEnabled = false
+                btMonthly.isEnabled = true
+            }
+
+            ViewRange.MONTH -> {
+                btDaily.isEnabled = true
+                btWeekly.isEnabled = true
+                btMonthly.isEnabled = false
+            }
+
+        }
     }
 
     private fun handleResponse(vmResponse: VmResponse) {
@@ -184,8 +219,12 @@ class DetailActivity : BaseActivity() {
                 try {
 
                     cryptoHistData =
-                        jacksonObjectMapper().convertValue(vmResponse.data, CompareHistoryResponse::class.java)
+                        jacksonObjectMapper().convertValue(
+                            vmResponse.data,
+                            CompareHistoryResponse::class.java
+                        )
                     displayGraph()
+                    modifyGraphParam()
 
 
                 } catch (e: Exception) {
@@ -203,7 +242,7 @@ class DetailActivity : BaseActivity() {
         }
     }
 
-     fun setBundleInVM() {
+    fun setBundleInVM() {
         detailViewModel.setViewBundle(viewBundle)
     }
 
@@ -223,7 +262,12 @@ class DetailActivity : BaseActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 viewBundle.putParcelable(
                     "frequency",
                     ViewFrequency.valueOf(parent!!.selectedItem.toString().toUpperCase())
