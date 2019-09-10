@@ -14,14 +14,14 @@ class WebActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (intent.getStringExtra("url") != null && !intent.getStringExtra("url").isBlank()) {
+        if (intent.getStringExtra(AppConstants.BUNDLE_URL) != null && !intent.getStringExtra(AppConstants.BUNDLE_URL).isBlank()) {
             setContentView(R.layout.activity_web)
 
             webView.visibility = View.VISIBLE
             webView.settings.javaScriptEnabled = true
             webView.webViewClient = WebViewClient()
 
-            webView.loadUrl(intent.getStringExtra("url"))
+            webView.loadUrl(intent.getStringExtra(AppConstants.BUNDLE_URL))
 
         } else {
             finish()

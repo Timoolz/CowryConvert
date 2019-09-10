@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.gson.Gson
+import com.olamide.cowryconvert.AppConstants
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.adapter.MainAdapter
 import com.olamide.cowryconvert.model.CompareMultipleResponse
@@ -133,14 +134,14 @@ class MainActivity : BaseActivity() {
                 view.info_layout.visibility = View.GONE
             } else {
                 var startDetailIntent = Intent(activity, DetailActivity::class.java)
-                startDetailIntent.putExtra("currency", activity.currentCurrency)
-                startDetailIntent.putExtra("crypto", currentCrypto)
+                startDetailIntent.putExtra(AppConstants.BUNDLE_CURRENCY, activity.currentCurrency)
+                startDetailIntent.putExtra(AppConstants.BUNDLE_CRYPTO, currentCrypto)
                 startDetailIntent.putExtra(
-                    "rawDet",
+                    AppConstants.BUNDLE_RAW,
                     activity.cryptMainData.raw[currentCrypto.code]?.get(activity.currentCurrency)
                 )
                 startDetailIntent.putExtra(
-                    "displayDet",
+                    AppConstants.BUNDLE_DISPLAY,
                     activity.cryptMainData.display[currentCrypto.code]?.get(activity.currentCurrency)
                 )
                 activity.startActivity(startDetailIntent)

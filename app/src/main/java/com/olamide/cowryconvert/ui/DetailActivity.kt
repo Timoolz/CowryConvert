@@ -48,10 +48,10 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun initDefaultDataConfig() {
-        currentCrypto = intent.getParcelableExtra("crypto")!!
-        currentCurrency = intent.getStringExtra("currency")!!
-        rawDetails = intent.getParcelableExtra("rawDet")!!
-        dispDetails = intent.getParcelableExtra("displayDet")!!
+        currentCrypto = intent.getParcelableExtra(AppConstants.BUNDLE_CRYPTO)!!
+        currentCurrency = intent.getStringExtra(AppConstants.BUNDLE_CURRENCY)!!
+        rawDetails = intent.getParcelableExtra(AppConstants.BUNDLE_RAW)!!
+        dispDetails = intent.getParcelableExtra(AppConstants.BUNDLE_DISPLAY)!!
 
     }
 
@@ -67,8 +67,8 @@ class DetailActivity : BaseActivity() {
             .observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
         if (savedInstanceState == null) {
-            viewBundle.putParcelable("range", ViewRange.WEEK)
-            viewBundle.putParcelable("frequency", ViewFrequency.HOURLY)
+            viewBundle.putParcelable(AppConstants.BUNDLE_RANGE, ViewRange.WEEK)
+            viewBundle.putParcelable(AppConstants.BUNDLE_FREQ, ViewFrequency.HOURLY)
             setBundleInVM()
             //getHistoryDetails()
 
@@ -133,7 +133,7 @@ class DetailActivity : BaseActivity() {
         gvDetails.gridLabelRenderer.setHumanRounding(true)
         gvDetails.gridLabelRenderer.numHorizontalLabels = 3
 
-        if (ViewFrequency.DAILY == viewBundle.getParcelable("frequency")!!) {
+        if (ViewFrequency.DAILY == viewBundle.getParcelable(AppConstants.BUNDLE_FREQ)!!) {
             gvDetails.gridLabelRenderer.labelFormatter =
                 CurrencyAsYDateAsXAxisLabelFormatter(
                     this,
@@ -183,8 +183,8 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun modifyGraphParam() {
-        val viewRange: ViewRange = viewBundle.getParcelable("range")!!
-        val viewFrequency: ViewFrequency = viewBundle.getParcelable("frequency")!!
+        val viewRange: ViewRange = viewBundle.getParcelable(AppConstants.BUNDLE_RANGE)!!
+        val viewFrequency: ViewFrequency = viewBundle.getParcelable(AppConstants.BUNDLE_FREQ)!!
 
         when (viewRange) {
             ViewRange.DAY -> {
@@ -268,7 +268,7 @@ class DetailActivity : BaseActivity() {
                 id: Long
             ) {
                 viewBundle.putParcelable(
-                    "frequency",
+                    AppConstants.BUNDLE_FREQ,
                     ViewFrequency.valueOf(parent!!.selectedItem.toString().toUpperCase())
                 )
                 setBundleInVM()
@@ -279,7 +279,7 @@ class DetailActivity : BaseActivity() {
         //set Onclick listeners for range
         btDaily.setOnClickListener {
             viewBundle.putParcelable(
-                "range",
+                AppConstants.BUNDLE_RANGE,
                 ViewRange.DAY
             )
             setBundleInVM()
@@ -287,7 +287,7 @@ class DetailActivity : BaseActivity() {
 
         btWeekly.setOnClickListener {
             viewBundle.putParcelable(
-                "range",
+                AppConstants.BUNDLE_RANGE,
                 ViewRange.WEEK
             )
             setBundleInVM()
@@ -295,7 +295,7 @@ class DetailActivity : BaseActivity() {
 
         btMonthly.setOnClickListener {
             viewBundle.putParcelable(
-                "range",
+                AppConstants.BUNDLE_RANGE,
                 ViewRange.MONTH
             )
             setBundleInVM()
