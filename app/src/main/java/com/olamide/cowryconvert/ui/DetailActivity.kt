@@ -12,7 +12,7 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.olamide.cowryconvert.AppConstants
-import com.olamide.cowryconvert.CurrencyAsYDateAsXAxisLabelFormatter
+import com.olamide.cowryconvert.util.CurrencyAsYDateAsXAxisLabelFormatter
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.model.*
 import com.olamide.cowryconvert.model.rx.Status
@@ -22,7 +22,6 @@ import com.olamide.cowryconvert.model.viewfilter.ViewRange
 import com.olamide.cowryconvert.viewmodel.DetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import java.text.SimpleDateFormat
 

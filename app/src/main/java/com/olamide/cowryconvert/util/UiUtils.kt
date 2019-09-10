@@ -1,4 +1,4 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.util
 
 import android.app.Application
 import android.content.Context

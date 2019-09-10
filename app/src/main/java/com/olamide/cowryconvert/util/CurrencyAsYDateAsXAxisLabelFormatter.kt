@@ -1,4 +1,4 @@
-package com.olamide.cowryconvert
+package com.olamide.cowryconvert.util
 
 import android.content.Context
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter

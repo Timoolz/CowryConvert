@@ -1,13 +1,12 @@
 package com.olamide.cowryconvert.ui
 
-import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import com.olamide.cowryconvert.UiUtils
+import com.olamide.cowryconvert.util.UiUtils
 import com.olamide.cowryconvert.viewmodel.factory.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
