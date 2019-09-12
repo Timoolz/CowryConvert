@@ -27,4 +27,133 @@
     "code": "XMR",
     "name": "Monero"
   }
+,
+  {
+    "code": "42",
+    "name": "42 Coin"
+  },
+  {
+    "code": "ETC",
+    "name": "Ethereum Classic"
+  },
+  {
+    "code": "DOGE",
+    "name": "Dogecoin"
+  },
+  {
+    "code": "ZEC",
+    "name": "ZCash"
+  },
+  {
+    "code": "BTS",
+    "name": "Bitshares"
+  },
+  {
+    "code": "DGB",
+    "name": "DigiByte"
+  },
+  {
+    "code": "BTCD",
+    "name": "BitcoinDark"
+  },
+  {
+    "code": "PPC",
+    "name": "PeerCoin"
+  },
+  {
+    "code": "KOBO",
+    "name": "KoboCoin"
+  },
+  {
+    "code": "XBS",
+    "name": "Bitstake"
+  },
+  {
+    "code": "XPY",
+    "name": "PayCoin"
+  },
+  {
+    "code": "PRC",
+    "name": "ProsperCoin"
+  },
+  {
+    "code": "YBC",
+    "name": "YbCoin"
+  },
+  {
+    "code": "DANK",
+    "name": "DarkKush"
+  },
+  {
+    "code": "GIVE",
+    "name": "GiveCoin"
+  },
+  {
+    "code": "DT",
+    "name": "DarkToken"
+  },
+  {
+    "code": "CETI",
+    "name": "CETUS Coin"
+  },
+  {
+    "code": "MOON",
+    "name": "MoonCoin"
+  },
+  {
+    "code": "XMY",
+    "name": "MyriadCoin"
+  },
+  {
+    "code": "BQC",
+    "name": "BQCoin"
+  },
+  {
+    "code": "BLK",
+    "name": "BlackCoin"
+  },
+  {
+    "code": "AXR",
+    "name": "AXRON"
+  },
+  {
+    "code": "ZET",
+    "name": "ZetaCoin"
+  },
+  {
+    "code": "SXC",
+    "name": "SexCoin"
+  },
+  {
+    "code": "QTL",
+    "name": "Quatloo"
+  },
+  {
+    "code": "QRK",
+    "name": "QuarkCoin"
+  },
+  {
+    "code": "GEO",
+    "name": "GeoCoin"
+  },
+  {
+    "code": "XPD",
+    "name": "PetroDollar"
+  },
+  {
+    "code": "CHASH",
+    "name": "CleverHash"
+  },
+  {
+    "code": "SPR",
+    "name": "Spreadcoin"
+  },
+  {
+    "code": "NXTI",
+    "name": "NXTI"
+  },
+  {
+    "code": "SUP",
+    "name": "Supcoin"
+  }
 ]
