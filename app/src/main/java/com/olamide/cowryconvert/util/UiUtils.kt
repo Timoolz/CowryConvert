@@ -3,16 +3,36 @@ package com.olamide.cowryconvert.util
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
+import androidx.appcompat.app.AppCompatDelegate
+import com.olamide.cowryconvert.model.NightMode
 import javax.inject.Inject
 
 class UiUtils @Inject constructor(val application: Application) {
+    @Inject
+    lateinit var tempUtils: TempUtils
 
     fun isDarkTheme(): Boolean {
-        val mode = application.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
-        if (mode == Configuration.UI_MODE_NIGHT_YES) {
-            return true
+
+        var nightMode = tempUtils.getNightMode()
+        when (nightMode) {
+            NightMode.DARK -> {
+                return true
+            }
+
+            NightMode.LIGHT -> {
+                return false
+            }
+
+            NightMode.SYSTEM -> {
+                val mode =
+                    application.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
+                if (mode == Configuration.UI_MODE_NIGHT_YES) {
+                    return true
+                }
+                return false
+            }
         }
-        return false
+
 
     }
 
