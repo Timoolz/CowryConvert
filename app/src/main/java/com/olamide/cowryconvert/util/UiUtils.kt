@@ -36,4 +36,23 @@ class UiUtils @Inject constructor(val application: Application) {
 
     }
 
+    fun setDarkTheme( nightMode: NightMode){
+        tempUtils.putNightMode(nightMode)
+        when (nightMode){
+            NightMode.DARK -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+
+            NightMode.LIGHT -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+            NightMode.SYSTEM -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+
+        }
+
+    }
+
 }

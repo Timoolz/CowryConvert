@@ -76,6 +76,9 @@
     <string name="bt_month">1M</string>
     <string name="bt_week">1W</string>
     <string name="bt_day">1D</string>
+    <string name="night_mode_string">Night Mode</string>
+    <string name="day_mode_string">Day Mode</string>
+    <string name="system_default_string">System Default</string>
 
     <string-array name="view_freq">
         <item>Hourly</item>

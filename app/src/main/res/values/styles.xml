@@ -19,6 +19,7 @@
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="shapeAppearanceLargeComponent">@style/AppTheme.BottomSheet</item>
 
 
         <item name="android:spinnerItemStyle">@style/mySpinnerItemSelectedStyle</item>
@@ -82,6 +83,11 @@
 
     <style name="AppTheme.TextView.Large">
         <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="AppTheme.BottomSheet" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/app_bottom_sheet_radius</item>
     </style>
 
 </resources>

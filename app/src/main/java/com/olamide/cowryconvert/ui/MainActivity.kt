@@ -2,6 +2,7 @@ package com.olamide.cowryconvert.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import androidx.core.os.bundleOf
@@ -9,17 +10,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.olamide.cowryconvert.AppConstants
 import com.olamide.cowryconvert.R
 import com.olamide.cowryconvert.adapter.MainAdapter
 import com.olamide.cowryconvert.model.CompareMultipleResponse
 import com.olamide.cowryconvert.model.Crypto
+import com.olamide.cowryconvert.model.NightMode
 import com.olamide.cowryconvert.model.rx.Status
 import com.olamide.cowryconvert.model.rx.VmResponse
 import com.olamide.cowryconvert.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.crypto_card.view.*
+import kotlinx.android.synthetic.main.night_dialog.*
+import kotlinx.android.synthetic.main.night_dialog.view.*
 import timber.log.Timber
 
 
@@ -52,6 +58,33 @@ class MainActivity : BaseActivity() {
         rv_crypto.layoutManager = layoutManager
         rv_crypto.isNestedScrollingEnabled = false
 
+        initNightToggle()
+    }
+
+    private fun initNightToggle() {
+        ivNight.setOnClickListener {
+            val promptView =
+                LayoutInflater.from(this).inflate(R.layout.night_dialog, null)
+            var dialog = BottomSheetDialog(this)
+            dialog.setContentView(promptView)
+            dialog.setCancelable(true)
+            dialog.show()
+
+            promptView.nightPicker.setOnClickListener {
+                uiUtils.setDarkTheme(NightMode.DARK)
+                dialog.dismiss()
+            }
+            promptView.dayPicker.setOnClickListener {
+                uiUtils.setDarkTheme(NightMode.LIGHT)
+                dialog.dismiss()
+            }
+            promptView.systemPicker.setOnClickListener {
+                uiUtils.setDarkTheme(NightMode.SYSTEM)
+                dialog.dismiss()
+            }
+
+        }
+
 
     }
 
@@ -67,7 +100,8 @@ class MainActivity : BaseActivity() {
             currentCurrency = response
 
         })
-        mainViewModel.getMultipleResponse().observe(this, Observer<VmResponse> { response -> handleResponse(response) })
+        mainViewModel.getMultipleResponse()
+            .observe(this, Observer<VmResponse> { response -> handleResponse(response) })
 
         if (savedInstanceState == null) {
             currentCurrency = currencies[0]
@@ -88,19 +122,28 @@ class MainActivity : BaseActivity() {
                 try {
 
                     cryptMainData =
-                        jacksonObjectMapper().convertValue(vmResponse.data, CompareMultipleResponse::class.java)
+                        jacksonObjectMapper().convertValue(
+                            vmResponse.data,
+                            CompareMultipleResponse::class.java
+                        )
 
                     populateAdapter()
-                    sp_currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
+                    sp_currency.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                            }
 
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            mainViewModel.setCurrency(sp_currency.selectedItem.toString())
-                            populateAdapter()
-                        }
+                            override fun onItemSelected(
+                                p0: AdapterView<*>?,
+                                p1: View?,
+                                p2: Int,
+                                p3: Long
+                            ) {
+                                mainViewModel.setCurrency(sp_currency.selectedItem.toString())
+                                populateAdapter()
+                            }
 
-                    }
+                        }
 
 
                 } catch (e: Exception) {

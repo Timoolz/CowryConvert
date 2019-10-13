@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_dialog"
+        android:orientation="vertical"
+        android:divider="?android:listDivider"
+        android:showDividers="middle"
+
+
+        >
+
+    <LinearLayout
+            android:id="@+id/nightPicker"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="10"
+            >
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="45dp"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/night_mode" />
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                style="@style/AppTheme.TextView.Medium"
+                android:padding="6dp"
+                android:textColor="@color/colorOnSurface"
+                android:text="@string/night_mode_string"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/dayPicker"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="10"
+            >
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="45dp"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/day_mode" />
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                style="@style/AppTheme.TextView.Medium"
+                android:padding="6dp"
+                android:textColor="@color/colorOnSurface"
+                android:text="@string/day_mode_string"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/systemPicker"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="10"
+            >
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="45dp"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/system_mode" />
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                style="@style/AppTheme.TextView.Medium"
+                android:padding="6dp"
+                android:textColor="@color/colorOnSurface"
+                android:text="@string/system_default_string"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
